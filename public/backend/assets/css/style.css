@@ -1,0 +1,14 @@
+.modal .modal-header{
+    border: 0 !important;
+}
+.deleteBtn{
+    float: right;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    background: transparent;
+    border: none;
+}
+/* input[type="text"]::placeholder{
+    color: #ccc;
+} */

@@ -20,12 +20,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title text-success float-left"><i class="fa icon-user-follow"></i> New User</h5>
-                        <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
-                            data-target="#modal">
-                            <i class="fa fa-plus"></i> Create New
-                        </button>
+                        <a href="{{ route('users.index') }}" class="btn btn-primary btn-round float-right text-white">
+                             All Users
+                        </a>
                     </div>
                     <div class="card-body py-5">
+                        @if (count($errors) > 0)
+                            <p class="mb-5 text-danger text-center"><strong>Whoops! </strong> Something went wrong, Please Try Again.</p>
+                        @endif
                         <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
@@ -51,15 +53,9 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text"><i class="fa icon-energy"></i></label>
                                         </div>
-                                        <select class="custom-select form-control" name="role[]">
-                                            <option class="bg-dark text-white" selected value="">Choose...</option>
-                                            @foreach ($roles as $role)
-                                                <option class="bg-dark text-white" value="">
-                                                    {{ $role }}</option>
-                                            @endforeach
-                                        </select>
+                                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
                                     </div>
-                                    @error('role[]')
+                                    @error('roles')
                                         <small class="text-warning"><strong>{{ $message }}</strong></small>
                                     @enderror
                                 </div>
@@ -156,9 +152,9 @@
                                             <span class="input-group-text"><i class="fa fa-circle-o"></i></span>
                                         </div>
                                         <input type="password" class="form-control" placeholder="**********"
-                                            name="password_confirmation">
+                                            name="confirm-password">
                                     </div>
-                                    @error('password_confirmation')
+                                    @error('confirm-password')
                                         <small class="text-warning"><strong>{{ $message }}</strong></small>
                                     @enderror
                                 </div>
@@ -177,7 +173,7 @@
                                             <option class="bg-dark text-white" value="Male">Others</option>
                                         </select>
                                     </div>
-                                    @error('role')
+                                    @error('gender')
                                         <small class="text-warning"><strong>{{ $message }}</strong></small>
                                     @enderror
                                 </div>
@@ -191,7 +187,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-location-arrow"></i></span>
                                         </div>
-                                        <textarea class="form-control" aria-label="With textarea" placeholder="Address..."></textarea>
+                                        <textarea class="form-control" name="address" aria-label="With textarea" placeholder="Address..."></textarea>
                                     </div>
                                 </div>
                             </div>

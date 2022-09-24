@@ -10,26 +10,20 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use Carbon\Carbon;
+use App\Helpers\File;
+use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    Use File;
+
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('backend.users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $users = User::latest()->with('department')->get();;
+        return view('backend.users.index',compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
@@ -37,29 +31,60 @@ class UserController extends Controller
         return view('backend.users.create',compact('roles','department'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'name'            => 'required|string|max:256|min:1',
+            'email'           => 'required|email|unique:users,email',
+            'phone'           => 'required||min:11|numeric',
+            'department_id'   => 'required',
+            'gender'          => 'required|string|max:56|min:1',
+            'dob'             => 'required|date',
+            'profile_picture' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+            'resume'          => 'mimes:jpeg,jpg,png,pdf|nullable|max:10000',
+            'joining_letter'  => 'mimes:jpeg,jpg,png,pdf|nullable|max:10000',
+            'password'        => 'required|same:confirm-password',
+            'roles'           => 'required'
         ]);
+
+        // Profile Picture ------------------
+        if ($file = $request->file('profile_picture')){
+            $path = 'public/images/teacher';
+            $profile_pic = $this->fileUpload($file,$path);
+        }else{
+            $profile_pic = '';
+        }
+
+        // Resume ------------------
+        if ($file = $request->file('resume')){
+            $path = 'public/document/users';
+            $resume = $this->fileUpload($file,$path);
+        }else{
+            $resume = '';
+        }
+
+        // Joining Letter ------------------
+        if ($file = $request->file('joining_letter')){
+            $path = 'public/document/users';
+            $joining_letter = $this->fileUpload($file,$path);
+        }else{
+            $joining_letter = '';
+        }
+
+        $dob = str_replace('/', '-', $request->dob);
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+        $input['dob'] = Carbon::parse($dob)->format('Y-m-d');
+        $input['profile_picture'] = $profile_pic;
+        $input['resume'] = $resume;
+        $input['joining_letter'] = $joining_letter;
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        Toastr::success('Teacher Creation Successfully!!', 'Success');
+        return redirect()->route('users.index');
     }
 
     /**

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
-            $table->foreign('department_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('phone')->nullable();
+            $table->integer('department_id')->nullable();
             $table->text('address')->nullable();
-            $table->string('gender');
-            $table->date('dob'); // Date of birth (Date Formate)
-            $table->string('profile_picture');
+            $table->string('gender')->nullable();
+            $table->date('dob')->nullable(); // Date of birth (Date Formate)
+            $table->string('profile_picture')->nullable();
             $table->string('resume')->nullable();
             $table->string('joining_letter')->nullable();
             $table->string('password');

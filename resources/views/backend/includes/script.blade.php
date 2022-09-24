@@ -9,8 +9,8 @@
     });
     // ------------------ When store and update data this function can call -------------------
     function success() {
-            allData();
-            $("#modal").modal('hide');
-            $('#form').trigger("reset");
-        }
+        allData();
+        $("#modal").modal('hide');
+        $('#form').trigger("reset");
+    }
 </script>

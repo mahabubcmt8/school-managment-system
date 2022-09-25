@@ -45,12 +45,8 @@
                                 <tr>
                                     <td class="text-center">
                                                 @if ($row->profile_picture)
-                                                <div class="user-account">
-                                                    <div class="user_div">
-                                                    <img src="{{ asset('storage/images/user/' . $row->profile_picture) }}"
-                                                        class="user-photo" alt="User"
-                                                        style="width: 50px; height: 50px">
-                                                    </div>
+                                                <div class="profile-image mb-3">
+                                                    <img src="{{ asset('storage/images/users/' . $row->profile_picture) }}" class="rounded-circle" style="width: 40px; height: 40px" alt="">
                                                 </div>
                                                 @else
                                                 <div class="profile-image mb-3">
@@ -77,11 +73,11 @@
                                                 title="View Users Info">
                                                 <span class="sr-only">Edit</span><i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="{{ url('teacher/' . $row->id . '/edit') }}" class="btn text-warning"
+                                            <a href="{{ url('users/' . $row->id . '/edit') }}" class="btn text-warning"
                                                 title="Edit">
                                                 <span class="sr-only">Edit</span><i class="fa fa-edit (alias)"></i>
                                             </a>
-                                            <form action="{{ route('teacher.destroy', $row->id) }}" method="POST"
+                                            <form action="{{ route('users.destroy', $row->id) }}" method="POST"
                                                 id="delForm" style="display: inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -110,48 +106,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
 
-        </div>
-    </div>
-
-
-
-
-    {{-- <table class="table table-bordered">
- <tr>
-   <th>No</th>
-   <th>Name</th>
-   <th>Email</th>
-   <th>Roles</th>
-   <th width="280px">Action</th>
- </tr>
- @foreach ($data as $key => $user)
-  <tr>
-    <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
-      @if (!empty($user->getRoleNames()))
-        @foreach ($user->getRoleNames() as $v)
-           <label class="badge badge-success">{{ $v }}</label>
-        @endforeach
-      @endif
-    </td>
-    <td>
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        {!! Form::close() !!}
-    </td>
-  </tr>
- @endforeach
-</table>
-
-
-{!! $data->render() !!} --}}
 @endsection
 @section('script')
     @include('backend.includes.script')

@@ -37,10 +37,12 @@
             <ul id="main-menu" class="metismenu">
                 <li class="active"><a href="{{ route('home') }}"><i class="fa icon-home"></i><span>Dashboard</span></a>
                 </li>
-                <li class="">
-                    <a href="{{ route('users.index') }}">
-                        <i class="fa fa-building-o"></i><span>Users</span>
-                    </a>
+                <li>
+                    <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span>Employee</span></a>
+                    <ul>
+                        <li><a href="{{ route('roles.index') }}">Role & Permission</a></li>
+                        <li><a href="{{ route('users.index') }}">Users</a></li>
+                    </ul>
                 </li>
                 <li class="">
                     <a href="{{ route('teacher.index') }}">
@@ -72,13 +74,7 @@
                         <i class="fa  fa-table"></i><span>Subject</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span>Users</span></a>
-                    <ul>
-                        <li><a href="{{ route('roles.index') }}">Users Role</a></li>
-                        <li><a href="{{ route('users.index') }}">Users</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </nav>
     </div>

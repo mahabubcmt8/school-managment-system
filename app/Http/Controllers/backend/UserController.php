@@ -47,95 +47,111 @@ class UserController extends Controller
             'roles'           => 'required'
         ]);
 
-        // Profile Picture ------------------
-        if ($file = $request->file('profile_picture')){
-            $path = 'public/images/teacher';
-            $profile_pic = $this->fileUpload($file,$path);
-        }else{
-            $profile_pic = '';
-        }
 
-        // Resume ------------------
-        if ($file = $request->file('resume')){
-            $path = 'public/document/users';
-            $resume = $this->fileUpload($file,$path);
-        }else{
-            $resume = '';
-        }
-
-        // Joining Letter ------------------
-        if ($file = $request->file('joining_letter')){
-            $path = 'public/document/users';
-            $joining_letter = $this->fileUpload($file,$path);
-        }else{
-            $joining_letter = '';
-        }
 
         $dob = str_replace('/', '-', $request->dob);
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $input['dob'] = Carbon::parse($dob)->format('Y-m-d');
-        $input['profile_picture'] = $profile_pic;
-        $input['resume'] = $resume;
-        $input['joining_letter'] = $joining_letter;
+
+        // Profile Picture ------------------
+        if ($file = $request->file('profile_picture')){
+            $path = 'public/images/users';
+            $profile_pic = $this->fileUpload($file,$path);
+            $input['profile_picture'] = $profile_pic;
+        }else{
+            $input['profile_picture'] = null;
+        }
+
+        // Resume ------------------
+        if ($file = $request->file('resume')){
+            $path = 'public/document/users';
+            $resume = $this->fileUpload($file,$path);
+            $input['resume'] = $resume;
+        }else{
+            $input['resume'] = null;
+        }
+
+        // Joining Letter ------------------
+        if ($file = $request->file('joining_letter')){
+            $path = 'public/document/users';
+            $joining_letter = $this->fileUpload($file,$path);
+            $input['joining_letter'] = $joining_letter;
+        }else{
+            $input['joining_letter'] = null;
+        }
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        Toastr::success('Teacher Creation Successfully!!', 'Success');
+        Toastr::success('User Creation Successfully!!', 'Success');
         return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::find($id);
         return view('backend.users.show',compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
+        $department = Department::latest()->get();
 
-        return view('backend.users.edit',compact('user','roles','userRole'));
+        return view('backend.users.edit',compact('user','roles','userRole','department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'name'            => 'required|string|max:256|min:1',
+            'email'           => 'required|email|unique:users,email,'.$id,
+            'phone'           => 'required||min:11|numeric',
+            'department_id'   => 'required',
+            'gender'          => 'required|string|max:56|min:1',
+            'dob'             => 'required|date',
+            'profile_picture' => 'mimes:jpeg,jpg,png,gif|nullable|max:10000',
+            'resume'          => 'mimes:jpeg,jpg,png,pdf|nullable|max:10000',
+            'joining_letter'  => 'mimes:jpeg,jpg,png,pdf|nullable|max:10000',
+            'roles'           => 'required'
         ]);
 
+        $dob = str_replace('/', '-', $request->dob);
+
         $input = $request->all();
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
+        $input['dob'] = Carbon::parse($dob)->format('Y-m-d');
+
+        // Profile Picture ------------------
+        if ($file = $request->file('profile_picture')){
+            $path = 'public/images/users';
+            $profile_pic = $this->fileUpload($file,$path);
+            $input['profile_picture'] = $profile_pic;
         }else{
-            $input = Arr::except($input,array('password'));
+            unset($input['profile_picture']);
         }
+
+        // Resume ------------------
+        if ($file = $request->file('resume')){
+            $path = 'public/document/users';
+            $resume = $this->fileUpload($file,$path);
+            $input['resume'] = $resume;
+        }else{
+            unset($input['resume']);
+        }
+
+        // Joining Letter ------------------
+        if ($file = $request->file('joining_letter')){
+            $path = 'public/document/users';
+            $joining_letter = $this->fileUpload($file,$path);
+            $input['joining_letter'] = $joining_letter;
+        }else{
+            unset($input['joining_letter']);
+        }
+
 
         $user = User::find($id);
         $user->update($input);
@@ -143,20 +159,14 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+        Toastr::success('User updated Successfully!!', 'Success');
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        Toastr::success('User deleted Successfully!!', 'Success');
+        return redirect()->route('users.index');
     }
 }

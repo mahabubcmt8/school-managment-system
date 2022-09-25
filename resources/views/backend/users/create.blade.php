@@ -169,8 +169,8 @@
                                         <select class="custom-select form-control" name="gender">
                                             <option class="bg-dark text-white" selected value="">Choose...</option>
                                             <option class="bg-dark text-white" value="Male">Male</option>
-                                            <option class="bg-dark text-white" value="Male">Female</option>
-                                            <option class="bg-dark text-white" value="Male">Others</option>
+                                            <option class="bg-dark text-white" value="Female">Female</option>
+                                            <option class="bg-dark text-white" value="Others">Others</option>
                                         </select>
                                     </div>
                                     @error('gender')

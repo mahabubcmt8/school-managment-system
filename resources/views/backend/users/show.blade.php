@@ -22,7 +22,7 @@
                     <div class="user-account">
                         <div class="user_div">
                             @if ($user->profile_picture)
-                                <img src="{{ asset('storage/images/user/' . $user->profile_picture) }}" class="user-photo"
+                                <img src="{{ asset('storage/images/users/' . $user->profile_picture) }}" class="user-photo"
                                 alt="User Profile Picture" style="width: 140px;height:140px">
                             @else
                             <img src="{{ asset('backend/assets/images/user.png') }}" class="user-photo"

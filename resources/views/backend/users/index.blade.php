@@ -59,7 +59,12 @@
                                     <td>{{ $row->name }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->phone }}</td>
-                                    <td>{{ $row->department->name }}</td>
+                                    <td>
+                                        @isset($row->department->name)
+                                            {{ $row->department->name }}
+                                        @else
+                                            {{ "None" }}
+                                        @endisset
                                     <td>
                                         @if (!empty($row->getRoleNames()))
                                             @foreach ($row->getRoleNames() as $v)

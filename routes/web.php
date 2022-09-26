@@ -7,7 +7,6 @@ use App\Http\Controllers\backend\SectionController;
 use App\Http\Controllers\backend\DepartmentController;
 use App\Http\Controllers\backend\ClassRoomController;
 use App\Http\Controllers\backend\SubjectController;
-use App\Http\Controllers\backend\TeacherController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\RoleController;
@@ -54,9 +53,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Subject >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('subject', SubjectController::class);
     Route::get('/get/subject', [SubjectController::class, 'getSubject'])->name('getSubject');
-
-    // Subject >>>>>>>>>>>>>>>>>>>>>>>>>
-    Route::resource('teacher', TeacherController::class);
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

@@ -38,16 +38,11 @@
                 <li class="active"><a href="{{ route('home') }}"><i class="fa icon-home"></i><span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span>Employee</span></a>
+                    <a href="#uiElements" class="has-arrow"><i class="fa icon-users"></i><span>Employee</span></a>
                     <ul>
-                        <li><a href="{{ route('roles.index') }}">Role & Permission</a></li>
                         <li><a href="{{ route('users.index') }}">Users</a></li>
+                        <li><a href="{{ route('roles.index') }}">Role & Permission</a></li>
                     </ul>
-                </li>
-                <li class="">
-                    <a href="{{ route('teacher.index') }}">
-                        <i class="fa fa-building-o"></i><span>Teacher</span>
-                    </a>
                 </li>
                 <li class="">
                     <a href="{{ route('class.index') }}">

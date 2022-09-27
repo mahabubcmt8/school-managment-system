@@ -15,8 +15,8 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-warning float-left">Department</h5>
-                    <button class="btn btn-warning btn-round float-right text-white" data-toggle="modal"
+                    <h5 class="card-title text-success float-left"><strong>Department</strong></h5>
+                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
@@ -52,22 +52,27 @@
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/get/department",
+                url: "{{ route('getDepartment') }}",
                 success: function(data) {
                     html = '';
-                    $.each(data, function(key, value) {
-                        html += '<div class="col-md-3">'
-                        html += '<div class="card  border-success text-center text-success">'
-                        html += '<div class="card-body">'
-                        html += '<h5>' + value.name + '</h5>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><i class="fa fa-edit (alias)"></i></button>'
-                        html += '<button type="button" class="btn text-warning" onclick="deleteData(' +
-                            value.id + ')"><i class="fa fa-trash-o"></i></button>'
-                        html += '</div>'
-                        html += '</div>'
-                        html += '</div>'
+                    if(data.length != 0){
+                        $.each(data, function(key, value) {
+                            html += '<div class="col-md-4">'
+                            html += '<div class="card  border-success text-center text-success">'
+                            html += '<div class="card-body">'
+                            html += '<h5>' + value.name + '</h5>'
+                            html += '<button type="button" class="btn text-warning" onclick="editData(' +
+                                value.id + ')"><i class="fa fa-edit (alias)"></i></button>'
+                            html += '<button type="button" class="btn text-warning" onclick="deleteData(' +
+                                value.id + ')"><i class="fa fa-trash-o"></i></button>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
                     });
+                    }else{
+                        html += '<p class="m-auto">No data available to show</p>';
+                    }
+
                     $('.dataList').html(html);
                 }
             });
@@ -150,7 +155,7 @@
                     $.ajax({
                         type: "DELETE",
                         data: getInput(),
-                        url: "/department/" + id,
+                        url: "department/" + id,
                         success: function(data) {
                             success();
                             Swal.fire(

@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get/department', [DepartmentController::class, 'getDepartment'])->name('getDepartment');
 
     // Class Room >>>>>>>>>>>>>>>>>>>>>>>>>
-    Route::resource('classroom', SubjectController::class);
-    Route::get('/get/class/room', [SubjectController::class, 'getClassRoom'])->name('getClassRoom');
+    Route::resource('classroom', ClassRoomController::class);
+    Route::get('/get/class/room', [ClassRoomController::class, 'getClassRoom'])->name('getClassRoom');
 
     // Subject >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('subject', SubjectController::class);

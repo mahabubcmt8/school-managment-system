@@ -15,8 +15,8 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-warning float-left">Class</h5>
-                    <button class="btn btn-warning btn-round float-right text-white" data-toggle="modal"
+                    <h5 class="card-title text-success float-left"><strong>Class</strong></h5>
+                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
@@ -53,10 +53,11 @@
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/getClasses",
+                url: "{{ route('getClasses') }}",
                 success: function(data) {
                     html = '';
-                    $.each(data, function(key, value) {
+                    if(data.length != 0){
+                        $.each(data, function(key, value) {
                         html += '<div class="col-md-4">'
                         html += '<div class="card  border-info text-center text-info">'
                         html += '<div class="card-body">'
@@ -71,6 +72,10 @@
                         html += '</div>'
                         html += '</div>'
                     });
+                    }else{
+                        html += '<p class="m-auto">No data available to show</p>';
+                    }
+
                     $('.dataList').html(html);
                 }
             });
@@ -150,13 +155,13 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "DELETE",
                         data: getInput(),
-                        url: "/class/" + id,
+                        url: "class/" + id,
                         success: function(data) {
                             success();
                             Swal.fire(

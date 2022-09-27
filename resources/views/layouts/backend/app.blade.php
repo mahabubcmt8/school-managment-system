@@ -9,7 +9,6 @@
 <meta name="author" content="WrapTheme, www.thememakker.com">
 
 <link rel="icon" href="favicon.ico" type="{{ asset('backend/assets/image/x-icon') }}">
-@yield('css')
 <!-- VENDOR CSS -->
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
@@ -25,14 +24,14 @@
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
 <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+@yield('css')
 </head>
 <body class="theme-cyan">
 
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img src="{{ asset('backend/assets/images/icon-light.svg') }}" width="48" height="48" alt="HexaBit"></div>
-        <p>Please wait...</p>
+        <h4 class="text-white">Loading...</h4>
     </div>
 </div>
 <!-- Overlay For Sidebars -->

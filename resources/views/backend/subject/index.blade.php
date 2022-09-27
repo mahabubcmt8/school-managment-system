@@ -5,7 +5,7 @@
             <div class="col-md-6 col-sm-12 ">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Section</li>
+                    <li class="breadcrumb-item active">Subject</li>
                 </ul>
             </div>
         </div>
@@ -14,39 +14,39 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-warning float-left">Subject</h5>
-                    <button class="btn btn-warning btn-round float-right text-white" data-toggle="modal"
+                    <h5 class="card-title text-success float-left"><strong>Subject</strong></h5>
+                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="display text-info text-center" style="width:100%">
-                        <thead class="bg-success text-white">
+                    <table id="example" class="table table-bordered display text-white text-muted table-striped dataTable" style="width:100%">
+                        <thead class="thead-dark">
                             <tr>
-                                <th class="text-center">Class</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Code</th>
-                                <th class="text-center">Type</th>
-                                <th class="text-center">Optional</th>
-                                <th class="text-center">Total Mark</th>
-                                <th class="text-center">Pass Mark</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center text-info">Class</th>
+                                <th class="text-center text-info">Name</th>
+                                <th class="text-center text-info">Code</th>
+                                <th class="text-center text-info">Type</th>
+                                <th class="text-center text-info">Optional</th>
+                                <th class="text-center text-info">Total Mark</th>
+                                <th class="text-center text-info">Pass Mark</th>
+                                <th class="text-center text-info">Action</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
-
+                            <!-- Table data is loades with ajax -->
                         </tbody>
-                        <tfoot class="bg-success text-white">
+                        <tfoot class="thead-dark">
                             <tr>
-                                <th class="text-center">Class</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Code</th>
-                                <th class="text-center">Type</th>
-                                <th class="text-center">Optional</th>
-                                <th class="text-center">Total Mark</th>
-                                <th class="text-center">Pass Mark</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center text-info">Class</th>
+                                <th class="text-center text-info">Name</th>
+                                <th class="text-center text-info">Code</th>
+                                <th class="text-center text-info">Type</th>
+                                <th class="text-center text-info">Optional</th>
+                                <th class="text-center text-info">Total Mark</th>
+                                <th class="text-center text-info">Pass Mark</th>
+                                <th class="text-center text-info">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    @include('backend.section.modal')
+    @include('backend.subject.modal')
 @endsection
 @section('script')
     @include('backend.includes.script')
@@ -91,7 +91,7 @@
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/get/subject",
+                url: "{{ route('getSubject') }}",
                 success: function(data) {
                     html = '';
                     $.each(data, function(key, value) {
@@ -214,7 +214,7 @@
                     $.ajax({
                         type: "DELETE",
                         data: getInput(),
-                        url: "/subject/" + id,
+                        url: "subject/" + id,
                         success: function(data) {
                             success();
                             Swal.fire(

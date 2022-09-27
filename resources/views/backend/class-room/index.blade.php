@@ -14,31 +14,31 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-warning float-left">Section</h5>
-                    <button class="btn btn-warning btn-round float-right text-white" data-toggle="modal"
+                    <h5 class="card-title text-success float-left"><strong>Class Room</strong></h5>
+                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="display text-info text-center" style="width:100%">
-                        <thead class="bg-success text-white">
+                    <table id="example" class="table table-bordered display text-muted table-striped dataTable" style="width:100%">
+                        <thead class="thead-dark">
                             <tr>
-                                <th class="text-center">Class Name</th>
-                                <th class="text-center">Room No</th>
-                                <th class="text-center">Capacity</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-info">Class Name</th>
+                                <th class="text-info">Room No</th>
+                                <th class="text-info">Capacity</th>
+                                <th class="text-info">Action</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
 
                         </tbody>
-                        <tfoot class="bg-success text-white">
+                        <tfoot class="thead-dark">
                             <tr>
-                                <th class="text-center">Class Name</th>
-                                <th class="text-center">Room No</th>
-                                <th class="text-center">Capacity</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-info">Class Name</th>
+                                <th class="text-info">Room No</th>
+                                <th class="text-info">Capacity</th>
+                                <th class="text-info">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -75,7 +75,7 @@
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/get/class/room",
+                url: "{{ route('getClassRoom') }}",
                 success: function(data) {
                     html = '';
                     $.each(data, function(key, value) {
@@ -180,7 +180,7 @@
                     $.ajax({
                         type: "DELETE",
                         data: getInput(),
-                        url: "/classroom/" + id,
+                        url: "classroom/" + id,
                         success: function(data) {
                             success();
                             Swal.fire(

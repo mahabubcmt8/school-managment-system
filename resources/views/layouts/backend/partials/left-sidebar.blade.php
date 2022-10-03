@@ -73,6 +73,14 @@
                                     href="{{ route('class-routine.index') }}">Get Routine</a></li>
                     </ul>
                 </li>
+                <li
+                    class="">
+                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Exam</span></a>
+                    <ul>
+                        <li class="{{ Request::routeIs('exam.index') ? 'active' : '' }}"><a
+                                href="{{ route('exam.index') }}">Exam List</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

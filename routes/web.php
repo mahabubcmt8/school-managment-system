@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\ClassRoutineController;
+use App\Http\Controllers\backend\ExamController;
 use App\Models\Section;
 
 
@@ -61,4 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Class Routine >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('class-routine', ClassRoutineController::class);
+
+    // Exam Controller >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('exam', ExamController::class);
+    Route::get('/get/exam/list', [ExamController::class, 'getExamList'])->name('getExamList');
 });

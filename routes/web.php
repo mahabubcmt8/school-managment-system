@@ -10,6 +10,8 @@ use App\Http\Controllers\backend\SubjectController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\RoleController;
+use App\Http\Controllers\backend\ClassRoutineController;
+use App\Models\Section;
 
 
 
@@ -25,7 +27,7 @@ use App\Http\Controllers\backend\RoleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -52,8 +54,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Subject >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('subject', SubjectController::class);
-    Route::get('/get/subject', [SubjectController::class, 'getSubject'])->name('getSubject');
+    Route::get('/get/All/subject', [SubjectController::class, 'getAllSubject'])->name('getAllSubject');
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+
+    // Class Routine >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('class-routine', ClassRoutineController::class);
 });

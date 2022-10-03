@@ -15,7 +15,7 @@ class SubjectController extends Controller
         return view('backend.subject.index', compact('class'));
     }
 
-    public function getSubject()
+    public function getAllSubject()
     {
         $data = Subject::latest()->with('classes')->get();
         return response()->json($data);

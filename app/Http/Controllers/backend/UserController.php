@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::latest()->with('department')->get();;
+        $users = User::latest()->with('department')->get();
         return view('backend.users.index',compact('users'));
     }
 

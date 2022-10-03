@@ -63,6 +63,16 @@
                                 href="{{ route('classroom.index') }}">Class Room</a></li>
                     </ul>
                 </li>
+                <li
+                    class="{{ Request::routeIs('class-routine.create') || Request::routeIs('class-routine.index') ? 'active' : '' }}">
+                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Class Routine</span></a>
+                    <ul>
+                        <li class="{{ Request::routeIs('class-routine.create') ? 'active' : '' }}"><a
+                                href="{{ route('class-routine.create') }}">New Routine</a></li>
+                        <li class="{{ Request::routeIs('class-routine.index') ? 'active' : '' }}"><a
+                                    href="{{ route('class-routine.index') }}">Get Routine</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

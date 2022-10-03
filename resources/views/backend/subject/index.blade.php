@@ -91,7 +91,7 @@
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "{{ route('getSubject') }}",
+                url: "{{ route('getAllSubject') }}",
                 success: function(data) {
                     html = '';
                     $.each(data, function(key, value) {

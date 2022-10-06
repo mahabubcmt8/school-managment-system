@@ -21,4 +21,5 @@ use App\Http\Controllers\backend\ajaxRequestController;
 Route::group(['middleware' => ['auth']], function () {
     Route::get('get/section/{id}' ,[ajaxRequestController::class , 'getSection'])->name('getSection');
     Route::get('get/subject/{id}' ,[ajaxRequestController::class , 'getSubject'])->name('getSubject');
+    Route::get('get/exams/{exam_id}/{class_id}/{section_id}',[ajaxRequestController::class, 'getExams'])->name('getExams');
 });

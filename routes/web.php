@@ -12,7 +12,7 @@ use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\ClassRoutineController;
 use App\Http\Controllers\backend\ExamController;
-use App\Models\Section;
+use App\Http\Controllers\backend\ExamScheduleContorller;
 
 
 
@@ -63,7 +63,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Class Routine >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('class-routine', ClassRoutineController::class);
 
-    // Exam Controller >>>>>>>>>>>>>>>>>>>>>>>>>
+    // Exam >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('exam', ExamController::class);
     Route::get('/get/exam/list', [ExamController::class, 'getExamList'])->name('getExamList');
+
+    // Exam schedule >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('exam-schedule', ExamScheduleContorller::class);
 });

@@ -79,6 +79,8 @@
                     <ul>
                         <li class="{{ Request::routeIs('exam.index') ? 'active' : '' }}"><a
                                 href="{{ route('exam.index') }}">Exam List</a></li>
+                        <li class="{{ Request::routeIs('schedule.index') ? 'active' : '' }}"><a
+                                    href="{{ route('exam-schedule.index') }}">Exam Schedule</a></li>
                     </ul>
                 </li>
             </ul>

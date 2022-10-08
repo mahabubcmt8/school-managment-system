@@ -83,6 +83,16 @@
                                     href="{{ route('exam-schedule.index') }}">Exam Schedule</a></li>
                     </ul>
                 </li>
+                <li
+                    class="">
+                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Student</span></a>
+                    <ul>
+                        <li class="{{ Request::routeIs('students.create') ? 'active' : '' }}"><a
+                                href="{{ route('students.create') }}">Add Student</a></li>
+                        <li class="{{ Request::routeIs('students.index') ? 'active' : '' }}"><a
+                                    href="{{ route('students.index') }}">All Student</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

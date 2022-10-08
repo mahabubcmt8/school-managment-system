@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\ClassRoutineController;
 use App\Http\Controllers\backend\ExamController;
 use App\Http\Controllers\backend\ExamScheduleContorller;
+use App\Http\Controllers\backend\StudentController;
 
 
 
@@ -69,4 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Exam schedule >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('exam-schedule', ExamScheduleContorller::class);
+
+    // Student >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('students', StudentController::class);
 });

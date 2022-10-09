@@ -91,6 +91,8 @@
                                 href="{{ route('students.create') }}">Add Student</a></li>
                         <li class="{{ Request::routeIs('students.index') ? 'active' : '' }}"><a
                                     href="{{ route('students.index') }}">All Student</a></li>
+                        <li class="{{ Request::routeIs('guardians.index') ? 'active' : '' }}"><a
+                                        href="{{ route('guardians.index') }}">Guardians</a></li>
                     </ul>
                 </li>
             </ul>

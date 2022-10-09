@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\ClassRoutineController;
 use App\Http\Controllers\backend\ExamController;
 use App\Http\Controllers\backend\ExamScheduleContorller;
 use App\Http\Controllers\backend\StudentController;
+use App\Http\Controllers\backend\GuardianController;
 
 
 
@@ -73,4 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Student >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('students', StudentController::class);
+
+    // Student >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('guardians', GuardianController::class);
 });

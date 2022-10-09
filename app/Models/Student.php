@@ -32,5 +32,9 @@ class Student extends Model
         return $this->hasOne(Section::class, 'id', 'section_id');
     }
 
+    public function guardian()
+    {
+        return $this->hasOne(guardian::class, 'student_id', 'id');
+    }
 
 }

@@ -44,8 +44,16 @@
                         <div class="col-md-4">
                             <ul class="text-info list-group">
                                 <li class="list-group-item"><i class="icon-graduation"></i> Full Name: {{ $student->name }}</li>
-                                <li class="list-group-item"><i class="icon-user"></i> Fathers Name: {{ $student->name }}</li>
-                                <li class="list-group-item"><i class="icon-user-female"></i> Mothers Name: {{ $student->name }}</li>
+                                <li class="list-group-item"><i class="icon-user"></i> Fathers Name:
+                                    <a href="{{ route('guardians.show',$student->guardian->id) }}">
+                                        {{ $student->guardian->fathers_name }}
+                                    </a>
+                                </li>
+                                <li class="list-group-item"><i class="icon-user-female"></i> Mothers Name:
+                                    <a href="{{ route('guardians.show',$student->guardian->id) }}">
+                                        {{ $student->guardian->mothers_name }}
+                                    </a>
+                                </li>
                                 <li class="list-group-item"><i class="icon-energy"></i> Roll No: {{ $student->roll_no }}</li>
                                 <li class="list-group-item"><i class="icon-energy"></i> Registration No: {{ $student->registration_no }}</li>
                                 <li class="list-group-item"><i class="fa fa-align-center"></i> Username: {{ $student->username }}</li>

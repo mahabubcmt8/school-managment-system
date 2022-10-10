@@ -17,9 +17,8 @@ use App\Http\Controllers\backend\StudentController;
 use App\Http\Controllers\backend\GuardianController;
 use App\Http\Controllers\backend\FeesTypeController;
 use App\Http\Controllers\backend\FeesController;
-
-
-
+use App\Http\Controllers\backend\ExpenseTypeController;
+use App\Http\Controllers\backend\ExpenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +86,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Fees >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('fees', FeesController::class);
+
+    // Expense Type >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('expense-type', ExpenseTypeController::class);
+    Route::get('/getExpenseType', [ExpenseTypeController::class, 'getExpenseType'])->name('getExpenseType');
+
+    // Expense  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('expense', ExpenseController::class);
+    Route::get('/getExpense', [ExpenseController::class, 'getExpense'])->name('getExpense');
 
 
 });

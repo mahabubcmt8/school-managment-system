@@ -17,8 +17,7 @@
                 <span>Welcome,</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name"
                     data-toggle="dropdown"><strong>{{ auth()->user()->name ??
-                        'Christy
-                                                                                Wert' }}</strong></a>
+                        'Christy Wert' }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account">
                     <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -96,13 +95,17 @@
                     </ul>
                 </li>
                 <li
-                    class="">
-                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Accounting</span></a>
+                    class="{{ Request::routeIs('fees-type.index') || Request::routeIs('fees.index') || Request::routeIs('expense-type.index') || Request::routeIs('expense.index') ? 'active' : '' }}">
+                    <a href="#uiElements" class="has-arrow"><i class=" icon-calculator"></i><span>Accounting</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('fees-type.index') ? 'active' : '' }}"><a
                                 href="{{ route('fees-type.index') }}">Fees Type</a></li>
                         <li class="{{ Request::routeIs('fees.index') ? 'active' : '' }}"><a
-                                    href="{{ route('fees.index') }}">Fees</a></li>
+                                    href="{{ route('fees.index') }}">Fees List</a></li>
+                        <li class="{{ Request::routeIs('expense-type.index') ? 'active' : '' }}"><a
+                                        href="{{ route('expense-type.index') }}">Expense Type</a></li>
+                        <li class="{{ Request::routeIs('expense.index') ? 'active' : '' }}"><a
+                                            href="{{ route('expense.index') }}">Expense</a></li>
                     </ul>
                 </li>
             </ul>

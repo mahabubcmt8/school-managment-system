@@ -15,6 +15,9 @@ use App\Http\Controllers\backend\ExamController;
 use App\Http\Controllers\backend\ExamScheduleContorller;
 use App\Http\Controllers\backend\StudentController;
 use App\Http\Controllers\backend\GuardianController;
+use App\Http\Controllers\backend\FeesTypeController;
+use App\Http\Controllers\backend\FeesController;
+
 
 
 
@@ -77,4 +80,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Student >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('guardians', GuardianController::class);
+
+    // Fees Type >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('fees-type', FeesTypeController::class);
+    Route::get('/getFeesType', [FeesTypeController::class, 'getFeesType'])->name('getFeesType');
+
+    // Fees >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('fees', FeesController::class);
+
+
 });

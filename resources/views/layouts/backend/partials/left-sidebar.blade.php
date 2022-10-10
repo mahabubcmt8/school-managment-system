@@ -95,6 +95,16 @@
                                         href="{{ route('guardians.index') }}">Guardians</a></li>
                     </ul>
                 </li>
+                <li
+                    class="">
+                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Accounting</span></a>
+                    <ul>
+                        <li class="{{ Request::routeIs('fees-type.index') ? 'active' : '' }}"><a
+                                href="{{ route('fees-type.index') }}">Fees Type</a></li>
+                        <li class="{{ Request::routeIs('fees.index') ? 'active' : '' }}"><a
+                                    href="{{ route('fees.index') }}">Fees</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

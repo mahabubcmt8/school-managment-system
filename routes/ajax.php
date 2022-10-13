@@ -24,4 +24,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('get/exams/{exam_id}/{class_id}/{section_id}',[ajaxRequestController::class, 'getExams'])->name('getExams');
     Route::get('/get/student/{class_id}/{section_id}', [ajaxRequestController::class, 'getStudent'])->name('getStudent');
     Route::get('/get/fees/{fees_type}/{class}/{section}/{status}', [ajaxRequestController::class, 'getFees'])->name('getFees');
+    Route::get('/get/all/marks/{exam}/{class}/{section}/{subject}', [ajaxRequestController::class, 'getAllMarks'])->name('getAllMarks');
 });

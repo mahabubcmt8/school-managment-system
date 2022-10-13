@@ -19,6 +19,11 @@ use App\Http\Controllers\backend\FeesTypeController;
 use App\Http\Controllers\backend\FeesController;
 use App\Http\Controllers\backend\ExpenseTypeController;
 use App\Http\Controllers\backend\ExpenseController;
+use App\Http\Controllers\backend\ResultRuleController;
+use App\Http\Controllers\backend\MarkController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,5 +100,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('expense', ExpenseController::class);
     Route::get('/getExpense', [ExpenseController::class, 'getExpense'])->name('getExpense');
 
+    // Result Rule  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('result-rule', ResultRuleController::class);
+    Route::get('/getResultRule', [ResultRuleController::class, 'getResultRule'])->name('getResultRule');
+
+    // Result Rule  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('mark', MarkController::class);
+    Route::get('mark-edit', [MarkController::class, 'markedit'])->name('markedit');
+    Route::post('mark-update', [MarkController::class, 'markupdate'])->name('markupdate');
 
 });

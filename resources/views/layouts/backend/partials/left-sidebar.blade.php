@@ -80,6 +80,10 @@
                                 href="{{ route('exam.index') }}">Exam List</a></li>
                         <li class="{{ Request::routeIs('schedule.index') ? 'active' : '' }}"><a
                                     href="{{ route('exam-schedule.index') }}">Exam Schedule</a></li>
+                        <li class="{{ Request::routeIs('result-rule.index') ? 'active' : '' }}"><a
+                                    href="{{ route('result-rule.index') }}">Result Rule</a></li>
+                        <li class="{{ Request::routeIs('mark.index') ? 'active' : '' }}"><a
+                                    href="{{ route('mark.index') }}">Mark</a></li>
                     </ul>
                 </li>
                 <li

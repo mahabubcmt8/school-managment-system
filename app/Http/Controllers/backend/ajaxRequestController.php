@@ -9,6 +9,7 @@ use App\Models\Subject;
 use App\Models\ExamSchedule;
 use App\Models\Student;
 use App\Models\Fees;
+use App\Models\Mark;
 
 class ajaxRequestController extends Controller
 {
@@ -43,6 +44,17 @@ class ajaxRequestController extends Controller
                 ->where('status', $status)
                 ->with('student','getFeesType','classes','section')
                 ->get();
+        return response()->json($data);
+    }
+
+    public function getAllMarks($exam, $class, $section, $subject)
+    {
+        $data = Mark::where('exams_id',$exam)
+        ->where('class_id', $class)
+        ->where('section_id', $section)
+        ->where('subject_id', $subject)
+        ->with('student')
+        ->get();
         return response()->json($data);
     }
 

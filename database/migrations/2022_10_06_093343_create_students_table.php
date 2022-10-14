@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('username');
+            $table->string('id_no');
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('section_id');
             $table->string('roll_no');

@@ -12,7 +12,7 @@ class Student extends Model
             'name',
             'email',
             'phone',
-            'username',
+            'id_no',
             'class_id',
             'section_id',
             'roll_no',

@@ -90,7 +90,7 @@ class StudentController extends Controller
             'name'              => 'required|max:24',
             'email'             => 'nullable|email|min:3',
             'phone'             => 'nullable|min:3',
-            'username'          => 'required|min:4|max:36',
+            'id_no'          => 'required|min:4|max:36',
             'roll_no'           => 'required|min:1',
             'dob'               => 'required|date',
             'registration_no'   => 'nullable',

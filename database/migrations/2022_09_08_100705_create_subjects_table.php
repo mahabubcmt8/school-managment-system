@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('class_id');
+            $table->unsignedBigInteger('class_id');
             $table->string('name');
             $table->string('code'); // subject code
             $table->string('type'); // Theory Or Practical
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('total_mark');
             $table->decimal('pass_mark');
             $table->timestamps();
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
         });
     }
 

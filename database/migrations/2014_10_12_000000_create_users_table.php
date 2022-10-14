@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->integer('department_id')->nullable();
             $table->text('address')->nullable();
             $table->string('gender')->nullable();
             $table->date('dob')->nullable(); // Date of birth (Date Formate)

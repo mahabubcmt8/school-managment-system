@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('capacity');
-            $table->unsignedBigInteger('class_id');
-            $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('department_id')->after('phone');
+            $table->foreign('department_id')->references('id')->on('departments')->nullable()->onDelete('cascade');
         });
     }
 
@@ -30,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

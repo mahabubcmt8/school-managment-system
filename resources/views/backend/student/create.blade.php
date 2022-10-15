@@ -79,17 +79,17 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <!-- ==================== Username ==================== -->
+                        <!-- ==================== ID NO ==================== -->
                         <div class="col-md-4">
-                            <label for="" class="text-info">Username: <span class="text-danger">*</span></label>
+                            <label for="" class="text-info">ID No: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-align-center"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username..." name="username"
-                                    value="{{ old('username') }}">
+                                <input type="text" class="form-control" placeholder="ID No..." name="id_no"
+                                    value="{{ old('id_no') }}">
                             </div>
-                            @error('username')
+                            @error('id_no')
                                 <small class="text-warning"><strong>{{ $message }}</strong></small>
                             @enderror
                         </div>

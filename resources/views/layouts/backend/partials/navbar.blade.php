@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top bg-success">
+<nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
 
         <div class="navbar-left">

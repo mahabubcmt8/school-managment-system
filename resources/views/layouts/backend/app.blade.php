@@ -38,14 +38,15 @@
 <div class="overlay"></div>
 
 <div id="wrapper">
+    @guest
+        @else
+            @include('layouts.backend.partials.navbar')
+            @include('layouts.backend.partials.left-sidebar')
+    @endguest
 
-    @include('layouts.backend.partials.navbar')
 
-
-    @include('layouts.backend.partials.left-sidebar')
 
     <div id="main-content">
-
         <div class="container-fluid">
             @yield('content')
         </div>

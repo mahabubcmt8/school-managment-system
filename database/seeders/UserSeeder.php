@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456')
         ]);
 
+        // $user = User::factory()->count(30)->create();
+
         $role = Role::create(['name' => 'Admin']);
 
         $permissions = Permission::pluck('id','id')->all();

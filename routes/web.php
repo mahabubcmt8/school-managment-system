@@ -21,8 +21,8 @@ use App\Http\Controllers\backend\ExpenseTypeController;
 use App\Http\Controllers\backend\ExpenseController;
 use App\Http\Controllers\backend\ResultRuleController;
 use App\Http\Controllers\backend\MarkController;
-
-
+use App\Http\Controllers\backend\EmployeeAttendenceController;
+use App\Http\Controllers\backend\StudentAttendenceController;
 
 
 /*
@@ -108,5 +108,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('mark', MarkController::class);
     Route::get('mark-edit', [MarkController::class, 'markedit'])->name('markedit');
     Route::post('mark-update', [MarkController::class, 'markupdate'])->name('markupdate');
+
+    // Employee Attendence  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('employee-attendence', EmployeeAttendenceController::class);
+
+    // Student Attendence  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('student-attendence', StudentAttendenceController::class);
+
 
 });

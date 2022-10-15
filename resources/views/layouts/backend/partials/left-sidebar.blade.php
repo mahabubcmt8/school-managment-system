@@ -51,8 +51,7 @@
                                 href="{{ route('roles.index') }}">Role & Permission</a></li>
                     </ul>
                 </li>
-                <li
-                    class="{{ Request::routeIs('class.*') || Request::routeIs('section.*') || Request::routeIs('subject.*') || Request::routeIs('department.*') || Request::routeIs('classroom.*') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('class.*') || Request::routeIs('section.*') || Request::routeIs('subject.*') || Request::routeIs('department.*') || Request::routeIs('classroom.*') ? 'active' : '' }}">
                     <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Academic</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('class.index') ? 'active' : '' }}"><a
@@ -67,8 +66,7 @@
                                 href="{{ route('classroom.index') }}">Class Room</a></li>
                     </ul>
                 </li>
-                <li
-                    class="{{ Request::routeIs('class-routine.*') || Request::routeIs('class-routine.*') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('class-routine.*') || Request::routeIs('class-routine.*') ? 'active' : '' }}">
                     <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Class Routine</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('class-routine.create') ? 'active' : '' }}"><a
@@ -77,8 +75,7 @@
                                     href="{{ route('class-routine.index') }}">Get Routine</a></li>
                     </ul>
                 </li>
-                <li
-                    class="{{ Request::routeIs('exam.*') || Request::routeIs('exam-schedule.*') || Request::routeIs('result-rule.*') || Request::routeIs('mark.*')? 'active' : '' }}">
+                <li class="{{ Request::routeIs('exam.*') || Request::routeIs('exam-schedule.*') || Request::routeIs('result-rule.*') || Request::routeIs('mark.*')? 'active' : '' }}">
                     <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Exam</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('exam.index') ? 'active' : '' }}"><a
@@ -91,8 +88,7 @@
                                     href="{{ route('mark.index') }}">Mark</a></li>
                     </ul>
                 </li>
-                <li
-                    class="{{ Request::routeIs('students.*') || Request::routeIs('guardians.*') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('students.*') || Request::routeIs('guardians.*') ? 'active' : '' }}">
                     <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Student</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('students.create') ? 'active' : '' }}"><a
@@ -103,8 +99,7 @@
                                         href="{{ route('guardians.index') }}">Guardians</a></li>
                     </ul>
                 </li>
-                <li
-                    class="{{ Request::routeIs('fees-type.*') || Request::routeIs('fees.*') || Request::routeIs('expense-type.*') || Request::routeIs('expense.*') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('fees-type.*') || Request::routeIs('fees.*') || Request::routeIs('expense-type.*') || Request::routeIs('expense.*') ? 'active' : '' }}">
                     <a href="#uiElements" class="has-arrow"><i class=" icon-calculator"></i><span>Accounting</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('fees-type.index') ? 'active' : '' }}"><a
@@ -115,6 +110,16 @@
                                         href="{{ route('expense-type.index') }}">Expense Type</a></li>
                         <li class="{{ Request::routeIs('expense.index') ? 'active' : '' }}"><a
                                             href="{{ route('expense.index') }}">Expense</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="">
+                    <a href="#uiElements" class="has-arrow"><i class=" icon-calculator"></i><span>Attendence</span></a>
+                    <ul>
+                        <li class="{{ Request::routeIs('employee-attendence.index') ? 'active' : '' }}"><a
+                                href="{{ route('employee-attendence.index') }}">Employee Attendence</a></li>
+                        <li class="{{ Request::routeIs('student-attendence.index') ? 'active' : '' }}"><a
+                                href="{{ route('student-attendence.index') }}">Student Attendence</a></li>
                     </ul>
                 </li>
             </ul>

@@ -23,7 +23,7 @@ use App\Http\Controllers\backend\ResultRuleController;
 use App\Http\Controllers\backend\MarkController;
 use App\Http\Controllers\backend\EmployeeAttendenceController;
 use App\Http\Controllers\backend\StudentAttendenceController;
-
+use App\Http\Controllers\backend\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +114,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Student Attendence  >>>>>>>>>>>>>>>>>>>>>>>>>
     Route::resource('student-attendence', StudentAttendenceController::class);
+
+    // Student Attendence  >>>>>>>>>>>>>>>>>>>>>>>>>
+    Route::resource('settings', SettingsController::class);
 
 
 });

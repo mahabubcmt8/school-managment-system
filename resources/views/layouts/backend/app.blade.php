@@ -1,14 +1,17 @@
+@php
+    $settings = App\Models\Settings::latest()->first();
+@endphp
 <!doctype html>
 <html lang="en">
 <head>
-<title>:: HexaBit Dark :: Home</title>
+<title>{{ $settings->system_title ? : 'Home'  }}</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="description" content="HexaBit Bootstrap 4x Admin Template">
 <meta name="author" content="WrapTheme, www.thememakker.com">
 
-<link rel="icon" href="favicon.ico" type="{{ asset('backend/assets/image/x-icon') }}">
+<link rel="icon" href="{{ asset('storage/images/settings/'.$settings->favicon) }}" type="image/x-icon">
 <!-- VENDOR CSS -->
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/font-awesome/css/font-awesome.min.css') }}">

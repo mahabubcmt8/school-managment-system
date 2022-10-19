@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Settings;
+use App\Models\Student;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['settings'] = Settings::latest()->first();
+        $data['student'] = Student::count();
+        $data['users'] = User::count();
+        return view('home',$data);
     }
 }

@@ -1,8 +1,16 @@
+@php
+    $settings = App\Models\Settings::latest()->first();
+@endphp
 <div id="left-sidebar" class="sidebar">
     <div class="navbar-brand">
-        <a href="index.html">
-            <img src="{{ asset('backend/assets/images/icon-light.svg') }}" alt="Software Logo"
-                class="img-fluid logo"><span>HexaBit</span>
+        <a href="{{ route('home') }}">
+            @if ($settings->logo != null)
+                <img src="{{ asset('storage/images/settings/'.$settings->logo) }}" alt="Software Logo"
+            class="img-fluid " style="width: 150px;height:60px">
+            @else
+                <img src="{{ asset('backend/assets/images/icon-light.svg') }}" alt="Software Logo"
+                class="img-fluid logo">
+            @endif
         </a>
         <button type="button" class="btn-toggle-offcanvas btn btn-sm btn-default float-right">
             <i class="lnr lnr-menu fa fa-chevron-circle-left"></i>
@@ -121,6 +129,11 @@
                         <li class="{{ Request::routeIs('student-attendence.index') ? 'active' : '' }}"><a
                                 href="{{ route('student-attendence.index') }}">Student Attendence</a></li>
                     </ul>
+                </li>
+                <li class="{{ Request::routeIs('settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('settings.index') }}">
+                        <i class="icon-settings"></i><span>Settings</span>
+                    </a>
                 </li>
             </ul>
         </nav>

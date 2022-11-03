@@ -17,7 +17,7 @@
                     <h5 class="from-title text-success"><strong>Result Rule</strong></h5>
                 </div>
                 <div class="card-body">
-                    <div class="row dataList">
+                    <div class="row my-5 dataList justify-content-center">
 
                     </div>
                 </div>
@@ -127,7 +127,10 @@
                         html += '</div>'
                     });
                     }else{
-                        html += '<p class="m-auto">No data available to show</p>';
+                        html += '<div class="text-center">'
+                        html += '<img src="{{ asset('backend/assets/images/404-error.png') }}" class="" width="150px">';
+                        html += '<h6 class="text-white">There are no data found in this page.</h6>';
+                        html += '</div>'
                     }
 
                     $('.dataList').html(html);

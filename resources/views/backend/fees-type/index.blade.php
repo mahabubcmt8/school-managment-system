@@ -14,7 +14,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mt-5 dataList">
+                    <div class="row my-5 dataList justify-content-center">
 
                     </div>
                 </div>
@@ -23,7 +23,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="from-title text-success"><strong>Fees Type</strong></h5>
+                    <h5 class="from-title text-center text-success"><strong>Fees Type</strong></h5>
                 </div>
                 <div class="card-body">
                     <input type="hidden" id="data_id">
@@ -82,7 +82,10 @@
                         html += '</div>'
                     });
                     }else{
-                        html += '<p class="m-auto">No data available to show</p>';
+                        html += '<div class="text-center">'
+                        html += '<img src="{{ asset('backend/assets/images/404-error.png') }}" class="" width="150px">';
+                        html += '<h6 class="text-white">There are no data found in this page.</h6>';
+                        html += '</div>'
                     }
 
                     $('.dataList').html(html);

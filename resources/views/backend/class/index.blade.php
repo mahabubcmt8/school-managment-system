@@ -6,30 +6,28 @@
             <div class="col-md-6 col-sm-12 ">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Class</li>
+                    <li class="breadcrumb-item active">Class Management</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-10">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-success float-left"><strong>Class</strong></h5>
-                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
-                        data-target="#modal">
-                        <i class="fa fa-plus"></i> Create New
-                    </button>
+                    <h5 class="card-title text-success text-center mb-4"><strong>Class Management</strong></h5>
+                    @include('backend.class.form')
                 </div>
-                <div class="card-body ">
-                    <div class="row mt-5 dataList">
+                <div class="card-body">
+
+                    <div class="row dataList mt-5 justify-content-center">
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('backend.class.create')
+
 @endsection
 @section('script')
     @include('backend.includes.script')
@@ -73,7 +71,10 @@
                         html += '</div>'
                     });
                     }else{
-                        html += '<p class="m-auto">No data available to show</p>';
+                        html += '<div class="text-center">'
+                        html += '<img src="{{ asset('backend/assets/images/404-error.png') }}" class="" width="150px">';
+                        html += '<h6 class="text-white">There are no data found in this page.</h6>';
+                        html += '</div>'
                     }
 
                     $('.dataList').html(html);
@@ -110,7 +111,6 @@
                 dataType: 'json',
                 url: "class/" + id + "/edit",
                 success: function(data) {
-                    $("#modal").modal('show');
                     $('.btnSave').hide();
                     $('.btnUpdate').show();
                     $("#data_id").val(data.id);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->longText('note')->nullable();
-            $table->boolean('status')->nullable()->default(false); // exam complete or not
+            $table->boolean('status')->nullable()->default(false); // exam complete or not // 0 = false, 1 = true;
             $table->timestamps();
         });
     }

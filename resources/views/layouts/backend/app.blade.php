@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="description" content="HexaBit Bootstrap 4x Admin Template">
 <meta name="author" content="WrapTheme, www.thememakker.com">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="icon" href="{{ asset('storage/images/settings/'.$settings->favicon) }}" type="image/x-icon">
 <!-- VENDOR CSS -->

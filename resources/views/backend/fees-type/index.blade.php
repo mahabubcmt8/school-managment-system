@@ -26,6 +26,7 @@
                     <h5 class="from-title text-center text-success"><strong>Fees Type</strong></h5>
                 </div>
                 <div class="card-body">
+                    <form id="form">
                     <input type="hidden" id="data_id">
                     <label for="" class="text-info">Name: <span class="text-danger">*</span></label>
                     <div class="input-group">
@@ -36,9 +37,10 @@
                     </div>
                     <small class="name_validation text-warning"></small><br>
                     <div class="text-center">
-                        <button class="saveBtn btn-block btn btn-primary btn-round mt-2" onclick="storeData();">Save</button>
-                        <button class="updateBtn btn-block btn btn-primary btn-round mt-2" onclick="updateData();">Update</button>
+                        <button type="button" class="saveBtn btn-block btn btn-primary btn-round mt-2" onclick="storeData();">Save</button>
+                        <button type="button" class="updateBtn btn-block btn btn-primary btn-round mt-2" onclick="updateData();">Update</button>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -102,7 +104,15 @@
                 data: getInput(),
                 success: function(data) {
                     allData();
-                    $('input[name=name').val('');
+                    $('#form').trigger("reset");
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Fees Type Successfully !!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.name_validation').text(error.responseJSON.errors.name);
@@ -137,10 +147,17 @@
                 url: "fees-type/" + id,
                 success: function(data) {
                     allData();
-                    $('.saveBtn').show();
-                    $('.updateBtn').hide();
+                    success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully !!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                     $('.from-title').text('Fees Type');
-                    $('input[name=name').val('');
+
                 },
                 error: function(error) {
                     $('.name_validation').text(error.responseJSON.errors.name);
@@ -166,11 +183,15 @@
                         url: "fees-type/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            allData();
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted !!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

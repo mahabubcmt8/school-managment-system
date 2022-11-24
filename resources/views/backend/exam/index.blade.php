@@ -14,35 +14,34 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-success float-left"><strong>Exam</strong></h5>
+                    <h5 class="card-title text-success float-left"><strong>Exam List</strong></h5>
                     <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="table table-bordered display text-white text-muted table-striped dataTable" style="width:100%">
-                        <thead class="thead-dark">
+                    <table class="table table-bordered data-table" id="data-table">
+                        <thead class="table-dark">
                             <tr>
-                                <th class="text-info">Name</th>
-                                <th class="text-info">Start Date</th>
-                                <th class="text-info">End Date</th>
-                                <th class="text-info">Note</th>
-                                <th class="text-info">Status</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Exam Name</th>
+                                <th class="text-center">Start Date</th>
+                                <th class="text-center">End Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="tbody">
-
+                        <tbody class="text-white text-center">
                         </tbody>
-                        <tfoot class="thead-dark">
+                        <tfoot class="table-dark">
                             <tr>
-                                <th class="text-info">Name</th>
-                                <th class="text-info">Start Date</th>
-                                <th class="text-info">End Date</th>
-                                <th class="text-info">Note</th>
-                                <th class="text-info">Status</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Exam Name</th>
+                                <th class="text-center">Start Date</th>
+                                <th class="text-center">End Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -51,6 +50,7 @@
         </div>
     </div>
     @include('backend.exam.modal')
+    @include('backend.exam.viewmodal')
 @endsection
 @section('script')
     @include('backend.includes.script')
@@ -65,11 +65,44 @@
         });
     </script>
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
         $('.btnUpdate').hide();
-        // --------------------- Get All Inputs ----------------------
+        /* ============================ All Data ============================ */
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getExamList') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date'
+                    },
+                    {
+                        data: 'end_date',
+                        name: 'end_date'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+
+        /* ============================ Get All Input ============================ */
         function getInput() {
             var id = $("#data_id").val();
             var name = $('input[name="name"]').val();
@@ -88,55 +121,23 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
-        function allData() {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "{{ route('getExamList') }}",
-                success: function(data) {
-                    html = '';
-                    $.each(data, function(key, value) {
 
-                        if (value.status == 1) {
-                            var status = '<span class="badge badge-success">Complete</span>';
-                        }else{
-                            var status = '<span class="badge badge-danger">InComplete</span>'
-                        }
-
-                        html += '<tr>'
-                        html += '<td>'+ value.name + '</td>'
-                        html += '<td>' + value.start_date + '</td>'
-                        html += '<td>' + value.end_date + '</td>'
-                        html += '<td>' + value.note + '</td>'
-                        html += '<td>' + status + '</td>'
-                        html += '<td>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><h5><i class="fa fa-edit (alias)"></i></h5></button>';
-                        html += '<button type="button" class="btn text-danger" onclick="deleteData(' +
-                            value.id + ')"><h5><i class="fa fa-trash-o"></i></h5></button>';
-                        html += '</td>'
-                        html += '</tr>'
-                    });
-                    $('.tbody').html(html);
-                }
-            });
-        }
-        allData();
-
-        // -------------------- Create a new Record -----------------------
+        // ============================ Create a new Record ============================
         function storeData() {
             $.ajax({
                 type: "POST",
                 url: "{{ route('exam.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Exam Created Successfully',
-                        timer: 1500
-                    });
                     success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Exam Created Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_name').text(error.responseJSON.errors.name);
@@ -147,7 +148,7 @@
             })
         }
 
-        // -------------------- Edit Data ----------------------
+        // ============================ Edit Data ============================
         function editData(id) {
             $.ajax({
                 type: "GET",
@@ -165,8 +166,32 @@
                 }
             });
         }
+        // ============================ Show Details ============================
+        function viewData(id) {
+            var url = "{{ route('exam.show', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: url,
+                success: function(data) {
+                    $("#viewmodal").modal('show');
+                    if (data.status == 1) {
+                        var status = 'Complete';
+                    } else if (data.status == 0) {
+                        status = 'InComplete';
+                    }
+                    $('.name').html(data.name);
+                    $('.start_date').html(data.start_date);
+                    $('.end_date').html(data.end_date);
+                    $('.status').html(status);
+                    $('.note').html(data.note);
 
-        // --------------------- Update Data ------------------------
+                }
+            });
+        }
+
+        // ============================ Update Data ============================
         function updateData() {
             var id = $("#data_id").val();
 
@@ -176,14 +201,15 @@
                 data: getInput(),
                 url: "exam/" + id,
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated Successfull',
-                        timer: 1500
-                    });
                     success();
-                    $('.btnSave').show();
-                    $('.btnUpdate').hide();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_name').text(error.responseJSON.errors.name);
@@ -194,7 +220,7 @@
             });
         }
 
-        // --------------------- Data Delete ---------------------
+        // ============================ Data Delete ============================
         function deleteData(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -212,11 +238,14 @@
                         url: "exam/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully!!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

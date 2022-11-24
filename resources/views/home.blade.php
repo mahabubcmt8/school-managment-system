@@ -109,6 +109,52 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card p-3 text-info">
+                <blockquote class="blockquote mb-0 border-info">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <h5><strong>Total Expense</strong></h5>
+                        </div>
+                        <div class="number float-right text-right">
+                            <h3><span class="font700">$100</span></h3>
+
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card p-3 text-info">
+                <blockquote class="blockquote mb-0 border-info">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <h5><strong>Total Department</strong></h5>
+                        </div>
+                        <div class="number float-right text-right">
+                            <h3><span class="font700">5</span></h3>
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card p-3 text-info">
+                <blockquote class="blockquote mb-0 border-info">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <h5><strong>Upcoming Exam</strong></h5>
+                        </div>
+                        <div class="number float-right text-right">
+                            <h3><span class="font700">{{ $student }}</span></h3>
+
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script>

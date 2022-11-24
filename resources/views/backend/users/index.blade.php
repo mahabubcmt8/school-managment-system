@@ -20,10 +20,10 @@
             <div class="card">
                 <div class="card-header">
                     <div class="pull-left">
-                        <h5 class="text-success">Users Management</h5>
+                        <h5 class="text-success"><strong>Users Management</strong></h5>
                     </div>
                     <div class="pull-right">
-                        <a class="btn btn-success btn-round" href="{{ route('users.create') }}"> Create New User</a>
+                        <a class="btn btn-success btn-round" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> Create New User</a>
                     </div>
                 </div>
                 <div class="card-body mt-5">

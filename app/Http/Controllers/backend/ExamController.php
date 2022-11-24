@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Exam;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 
 class ExamController extends Controller
 {
@@ -14,10 +15,43 @@ class ExamController extends Controller
         return view('backend.exam.index');
     }
 
-    public function getExamList()
+    public function getExamList(Request $request)
     {
-        $exam = Exam::latest()->get();
-        return response()->json($exam);
+        if ($request->ajax()) {
+            $data = Exam::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('start_date', function($data){
+                    $start_date = date('d-M-Y', strtotime($data->start_date));
+                    return $start_date;
+                })
+                ->editColumn('end_date', function($data){
+                    $end_date = date('d-M-Y', strtotime($data->end_date));
+                    return $end_date;
+                })
+                ->editColumn('status' , function($data){
+                    if($data->status == 1){
+                        $status = "Complete";
+                    }elseif ($data->status == 0) {
+                        $status = "Incomplete";
+                    }
+                    return $status;
+                })
+                ->addColumn('action', function($data){
+                    $btn = '<button type="button" class="btn text-info" onclick="viewData('.$data->id.')">
+                            <i class="fa fa-eye"></i>
+                            </button>
+                            <button type="button" class="btn text-warning" onclick="editData('.$data->id.')">
+                            <i class="fa fa-edit (alias)"></i>
+                            </button>
+                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
+                            <i class="fa fa-trash-o"></i>
+                            </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()
@@ -49,7 +83,8 @@ class ExamController extends Controller
 
     public function show($id)
     {
-        //
+        $exam = Exam::find($id);
+        return response()->json($exam);
     }
 
     public function edit($id)

@@ -49,8 +49,7 @@
                              <span class="text-warning validate_capacity"></span>
                          </div>
                      </div>
-                     <button type="button" class="btn btn-success btn-round btnSave mt-4 float-right"
-                         onclick="storeData();">Save</button>
+                     <button type="button" class="btn btn-success btn-round btnSave mt-4 float-right" id="saveBtn">Save</button>
                      <button type="button" class="btn btn-success btn-round btnUpdate mt-4 float-right"
                          onclick="updateData();">Update</button>
                  </form>

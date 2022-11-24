@@ -2,7 +2,7 @@
     $settings = App\Models\Settings::latest()->first();
 @endphp
 <div id="left-sidebar" class="sidebar">
-    <div class="navbar-brand">
+    <div class="navbar-brand text-center">
         <a href="{{ route('home') }}">
             @if ($settings->logo != null)
                 <img src="{{ asset('storage/images/settings/'.$settings->logo) }}" alt="Software Logo"
@@ -60,7 +60,7 @@
                     </ul>
                 </li>
                 <li class="{{ Request::routeIs('class.*') || Request::routeIs('section.*') || Request::routeIs('subject.*') || Request::routeIs('department.*') || Request::routeIs('classroom.*') ? 'active' : '' }}">
-                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Academic</span></a>
+                    <a href="#uiElements" class="has-arrow"><i class="fa fa-building"></i><span>Academic</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('class.index') ? 'active' : '' }}"><a
                                 href="{{ route('class.index') }}">Class</a></li>
@@ -84,7 +84,7 @@
                     </ul>
                 </li>
                 <li class="{{ Request::routeIs('exam.*') || Request::routeIs('exam-schedule.*') || Request::routeIs('result-rule.*') || Request::routeIs('mark.*')? 'active' : '' }}">
-                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Exam</span></a>
+                    <a href="#uiElements" class="has-arrow"><i class="fa fa-calendar"></i><span>Exam</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('exam.index') ? 'active' : '' }}"><a
                                 href="{{ route('exam.index') }}">Exam List</a></li>
@@ -97,7 +97,7 @@
                     </ul>
                 </li>
                 <li class="{{ Request::routeIs('students.*') || Request::routeIs('guardians.*') ? 'active' : '' }}">
-                    <a href="#uiElements" class="has-arrow"><i class="fa icon-book-open"></i><span>Student</span></a>
+                    <a href="#uiElements" class="has-arrow"><i class="fa fa-users"></i><span>Student</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('students.create') ? 'active' : '' }}"><a
                                 href="{{ route('students.create') }}">Add Student</a></li>
@@ -122,7 +122,7 @@
                 </li>
                 <li
                     class="">
-                    <a href="#uiElements" class="has-arrow"><i class=" icon-calculator"></i><span>Attendence</span></a>
+                    <a href="#uiElements" class="has-arrow"><i class="fa fa-square"></i><span>Attendence</span></a>
                     <ul>
                         <li class="{{ Request::routeIs('employee-attendence.index') ? 'active' : '' }}"><a
                                 href="{{ route('employee-attendence.index') }}">Employee Attendence</a></li>

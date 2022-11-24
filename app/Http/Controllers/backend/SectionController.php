@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classes;
 use App\Models\Section;
+use Yajra\DataTables\DataTables;
 
 class SectionController extends Controller
 {
@@ -16,10 +17,29 @@ class SectionController extends Controller
         return view('backend.section.index', compact('class'));
     }
 
-    public function getSections()
+    public function getSections(Request $request)
     {
-        $data = Section::oldest()->with('classes')->get();
-        return response()->json($data);
+        if ($request->ajax()) {
+            $data = Section::latest()->with('classes')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+
+                ->editColumn('classes', function($data){
+                    $class = $data->classes->class_name . " (" . $data->classes->class_numaric_name . ")";
+                    return $class;
+                })
+                ->addColumn('action', function($data){
+                    $btn = '<button type="button" class="btn text-warning" onclick="editData('.$data->id.')">
+                            <i class="fa fa-edit (alias)"></i>
+                            </button>
+                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
+                            <i class="fa fa-trash-o"></i>
+                            </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()

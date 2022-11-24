@@ -5,7 +5,7 @@
             <div class="col-md-6 col-sm-12 ">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Subject</li>
+                    <li class="breadcrumb-item active">Subject Management</li>
                 </ul>
             </div>
         </div>
@@ -14,39 +14,34 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-success float-left"><strong>Subject</strong></h5>
+                    <h5 class="card-title text-success float-left"><strong>Subject Management</strong></h5>
                     <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="table table-bordered display text-white text-muted table-striped dataTable" style="width:100%">
-                        <thead class="thead-dark">
+                    <table class="table table-bordered data-table" id="data-table">
+                        <thead class="table-dark">
                             <tr>
-                                <th class="text-center text-info">Class</th>
-                                <th class="text-center text-info">Name</th>
-                                <th class="text-center text-info">Code</th>
-                                <th class="text-center text-info">Type</th>
-                                <th class="text-center text-info">Optional</th>
-                                <th class="text-center text-info">Total Mark</th>
-                                <th class="text-center text-info">Pass Mark</th>
-                                <th class="text-center text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Code</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="tbody">
-                            <!-- Table data is loades with ajax -->
+                        <tbody class="text-white text-center">
                         </tbody>
-                        <tfoot class="thead-dark">
+                        <tfoot class="table-dark">
                             <tr>
-                                <th class="text-center text-info">Class</th>
-                                <th class="text-center text-info">Name</th>
-                                <th class="text-center text-info">Code</th>
-                                <th class="text-center text-info">Type</th>
-                                <th class="text-center text-info">Optional</th>
-                                <th class="text-center text-info">Total Mark</th>
-                                <th class="text-center text-info">Pass Mark</th>
-                                <th class="text-center text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Code</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -55,15 +50,13 @@
         </div>
     </div>
     @include('backend.subject.modal')
+    @include('backend.subject.view-modal')
 @endsection
 @section('script')
     @include('backend.includes.script')
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
         $('.btnUpdate').hide();
-        // --------------------- Get All Inputs ----------------------
+        // ============================ Get All Inputs ============================
         function getInput() {
             var id = $("#data_id").val();
             var class_id = $('select[name="class_id"]').val();
@@ -86,56 +79,58 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
-        function allData() {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "{{ route('getAllSubject') }}",
-                success: function(data) {
-                    html = '';
-                    $.each(data, function(key, value) {
-                        // optional Condition
-                        if (value.optional == 1) {
-                            var optional = "YES";
-                        } else {
-                            var optional = "NO";
-                        }
-                        html += '<tr>'
-                        html += '<td>' + value.classes.class_name + '</td>'
-                        html += '<td>' + value.name + '</td>'
-                        html += '<td>' + value.code + '</td>'
-                        html += '<td>' + value.type + '</td>'
-                        html += '<td>' + optional + '</td>'
-                        html += '<td>' + value.total_mark + '</td>'
-                        html += '<td>' + value.pass_mark + '</td>'
-                        html += '<td>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><h5><i class="fa fa-edit (alias)"></i></h5></button>';
-                        html += '<button type="button" class="btn text-danger" onclick="deleteData(' +
-                            value.id + ')"><h5><i class="fa fa-trash-o"></i></h5></button>';
-                        html += '</td>'
-                        html += '</tr>'
-                    });
-                    $('.tbody').html(html);
-                }
+        /* ============================ All Data ============================ */
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getAllSubject') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'classes',
+                        name: 'classes'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'code',
+                        name: 'code'
+                    },
+                    {
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
             });
-        }
-        allData();
+        });
 
-        // -------------------- Create a new Record -----------------------
+        // ============================ Create a new Record ============================
         function storeData() {
             $.ajax({
                 type: "POST",
                 url: "{{ route('subject.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Subject Created Successfully',
-                        timer: 1500
-                    });
                     success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Subject Created Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_id').text(error.responseJSON.errors.class_id);
@@ -149,7 +144,7 @@
             })
         }
 
-        // -------------------- Edit Data ----------------------
+        // ============================ Edit Data ============================
         function editData(id) {
             $.ajax({
                 type: "GET",
@@ -167,8 +162,34 @@
                 }
             });
         }
+        // ============================ Show Details ============================
+        function viewData(id) {
+            var url = "{{ route('subject.show', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: url,
+                success: function(data) {
+                    $("#viewmodal").modal('show');
+                    if (data.optional == 1) {
+                        var optional = 'YES';
+                    } else {
+                        optional = "NO"
+                    }
+                    console.log(data);
+                    $('.name').html(data.name);
+                    $('.code').html(data.code);
+                    $('.type').html(data.type);
+                    $('.optional').html(optional);
+                    $('.total_mark').html(data.total_mark);
+                    $('.pass_mark').html(data.pass_mark);
+                    $('.class').html(data.classes.class_name);
+                }
+            });
+        }
 
-        // --------------------- Update Data ------------------------
+        // ============================ Update Data ============================
         function updateData() {
             var id = $("#data_id").val();
 
@@ -178,14 +199,15 @@
                 data: getInput(),
                 url: "subject/" + id,
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated Successfull',
-                        timer: 1500
-                    });
                     success();
-                    $('.btnSave').show();
-                    $('.btnUpdate').hide();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_id').text(error.responseJSON.errors.class_id);
@@ -199,7 +221,7 @@
             });
         }
 
-        // --------------------- Data Delete ---------------------
+        // ============================ Data Delete ============================
         function deleteData(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -217,11 +239,14 @@
                         url: "subject/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully!!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

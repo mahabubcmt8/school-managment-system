@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-12">
+        <div class="col-10">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title text-success float-left"><strong>Section</strong></h5>
@@ -21,27 +21,29 @@
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="table table-bordered display text-white text-muted table-striped dataTable" style="width:100%">
-                        <thead class="thead-dark">
+                    <table class="table table-bordered data-table" id="data-table">
+                        <thead class="table-dark">
                             <tr>
-                                <th class="text-info">Class</th>
-                                <th class="text-info">Section</th>
-                                <th class="text-info">Capacity</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Section</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="tbody">
-
+                        <tbody class="text-white text-center">
                         </tbody>
-                        <tfoot class="thead-dark">
+                        <tfoot class="table-dark">
                             <tr>
-                                <th class="text-info">Class</th>
-                                <th class="text-info">Section</th>
-                                <th class="text-info">Capacity</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Section</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -50,12 +52,42 @@
 @endsection
 @section('script')
     @include('backend.includes.script')
+
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
         $('.btnUpdate').hide();
-        // --------------------- Get All Inputs ----------------------
+        /* ============================ All Data ============================ */
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getSections') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'classes',
+                        name: 'classes'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'capacity',
+                        name: 'capacity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+
+        /* ============================ Get All Input ============================ */
         function getInput() {
             var id = $("#data_id").val();
             var class_id = $('select[name="class_id"]').val();
@@ -70,46 +102,22 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
-        function allData() {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "{{ route('getSections') }}",
-                success: function(data) {
-                    html = '';
-                    $.each(data, function(key, value) {
-                        html += '<tr>'
-                        html += '<td>'+ value.classes.class_name + '</td>'
-                        html += '<td>' + value.name + '</td>'
-                        html += '<td>' + value.capacity + '</td>'
-                        html += '<td>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><h5><i class="fa fa-edit (alias)"></i></h5></button>';
-                        html += '<button type="button" class="btn text-danger" onclick="deleteData(' +
-                            value.id + ')"><h5><i class="fa fa-trash-o"></i></h5></button>';
-                        html += '</td>'
-                        html += '</tr>'
-                    });
-                    $('.tbody').html(html);
-                }
-            });
-        }
-        allData();
-
-        // -------------------- Create a new Record -----------------------
-        function storeData() {
+        /* ============================ Create new record ============================ */
+        $("#saveBtn").on('click', function() {
             $.ajax({
                 type: "POST",
                 url: "{{ route('section.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Section Created Successfully',
-                        timer: 1500
-                    });
                     success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Section Created Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_id').text(error.responseJSON.errors.class_id);
@@ -117,9 +125,8 @@
                     $('.validate_capacity').text(error.responseJSON.errors.capacity);
                 }
             })
-        }
-
-        // -------------------- Edit Data ----------------------
+        });
+        // ============================ Edit Data ============================
         function editData(id) {
             $.ajax({
                 type: "GET",
@@ -135,9 +142,8 @@
                 }
             });
         }
-
-        // --------------------- Update Data ------------------------
-        function updateData() {
+        // ============================ Update Data ============================
+        $('.btnUpdate').on('click', function() {
             var id = $("#data_id").val();
 
             $.ajax({
@@ -146,14 +152,15 @@
                 data: getInput(),
                 url: "section/" + id,
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated Successfull',
-                        timer: 1500
-                    });
                     success();
-                    $('.btnSave').show();
-                    $('.btnUpdate').hide();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_id').text(error.responseJSON.errors.class_id);
@@ -161,9 +168,8 @@
                     $('.validate_capacity').text(error.responseJSON.errors.capacity);
                 }
             });
-        }
-
-        // --------------------- Data Delete ---------------------
+        });
+        // ============================ Data Delete ============================
         function deleteData(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -181,11 +187,14 @@
                         url: "section/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully !!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

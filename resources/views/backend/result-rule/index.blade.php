@@ -29,6 +29,7 @@
                     <h5 class="from-title text-success"><strong>Add New</strong></h5>
                 </div>
                 <div class="card-body">
+                    <form id="form">
                     <input type="hidden" id="data_id">
                     <div class="row">
                         <div class="col-12">
@@ -74,9 +75,10 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="saveBtn btn-block btn btn-primary btn-round mt-2" onclick="storeData();">Save</button>
-                        <button class="updateBtn btn-block btn btn-primary btn-round mt-2" onclick="updateData();">Update</button>
+                        <button type="button" class="saveBtn btn-block btn btn-primary btn-round mt-2" onclick="storeData();">Save</button>
+                        <button type="button" class="updateBtn btn-block btn btn-primary btn-round mt-2" onclick="updateData();">Update</button>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -117,7 +119,7 @@
                         html += '<div class="card  border-success text-center text-success">'
                         html += '<div class="card-body">'
                         html += '<h5><strong>' + value.name + '<span> (' +value.gpa+ ') </span></strong></h5>'
-                        html += '<h6>'+(value.min_mark+ " - "+ value.max_mark)+'</h6>'
+                        html += '<h6>Mark '+(value.min_mark+ " - "+ value.max_mark)+'</h6>'
                         html += '<button type="button" class="btn text-warning" onclick="editData(' +
                             value.id + ')"><i class="fa fa-edit (alias)"></i></button>'
                         html += '<button type="button" class="btn text-warning" onclick="deleteData(' +
@@ -146,16 +148,16 @@
                 url: "{{ route('result-rule.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    Swal.fire(
-                        'Inserted!',
-                        'Data Inserted Successfull.',
-                        'success'
-                    );
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Rule added Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                     allData();
-                    $('input[name="name"]').val('');
-                    $('input[name="gpa"]').val('');
-                    $('input[name="min_mark"]').val('');
-                    $('input[name="max_mark"]').val('');
+                    $('#form').trigger("reset");
                 },
                 error: function(error) {
                     $('.name_validation').text(error.responseJSON.errors.name);
@@ -195,19 +197,19 @@
                 data: getInput(),
                 url: "result-rule/" + id,
                 success: function(data) {
-                    Swal.fire(
-                        'Updated!',
-                        'Your Data Updated.',
-                        'success'
-                    );
-                    allData();
                     $('.saveBtn').show();
                     $('.updateBtn').hide();
                     $('.from-title').text('Add New');
-                    $('input[name="name"]').val('');
-                    $('input[name="gpa"]').val('');
-                    $('input[name="min_mark"]').val('');
-                    $('input[name="max_mark"]').val('');
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Rule Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    allData();
+                    $('#form').trigger("reset");
                 },
                 error: function(error) {
                     $('.name_validation').text(error.responseJSON.errors.name);
@@ -235,12 +237,15 @@
                         data: getInput(),
                         url: "result-rule/" + id,
                         success: function(data) {
-                            success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            allData();
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Rule Deleted!!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

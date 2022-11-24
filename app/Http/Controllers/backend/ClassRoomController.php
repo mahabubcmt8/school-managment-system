@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ClassRoomController extends Controller
 {
@@ -13,9 +14,23 @@ class ClassRoomController extends Controller
         return view('backend.class-room.index');
     }
 
-    public function getClassRoom(){
-        $data = ClassRoom::latest()->get();
-        return response()->json($data);
+    public function getClassRoom(Request $request){
+        if ($request->ajax()) {
+            $data = ClassRoom::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    $btn = '<button type="button" class="btn text-warning" onclick="editData('.$data->id.')">
+                            <i class="fa fa-edit (alias)"></i>
+                            </button>
+                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
+                            <i class="fa fa-trash-o"></i>
+                            </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function create()

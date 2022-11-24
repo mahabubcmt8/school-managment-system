@@ -27,7 +27,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 @section('script')
     @include('backend.includes.script')
@@ -46,7 +45,7 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
+        // ============================== Get All Records from Database ==============================
         function allData() {
             $.ajax({
                 type: "GET",
@@ -54,25 +53,28 @@
                 url: "{{ route('getClasses') }}",
                 success: function(data) {
                     html = '';
-                    if(data.length != 0){
+                    if (data.length != 0) {
                         $.each(data, function(key, value) {
-                        html += '<div class="col-md-4">'
-                        html += '<div class="card  border-info text-center text-info">'
-                        html += '<div class="card-body">'
-                        html += '<h5 class="social_icon bg-info mb-3">' + value.class_numaric_name +
-                            '</h5>'
-                        html += '<h5>' + "Class: " + value.class_name + '</h5>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><i class="fa fa-edit (alias)"></i></button>'
-                        html += '<button type="button" class="btn text-warning" onclick="deleteData(' +
-                            value.id + ')"><i class="fa fa-trash-o"></i></button>'
-                        html += '</div>'
-                        html += '</div>'
-                        html += '</div>'
-                    });
-                    }else{
+                            html += '<div class="col-md-4">'
+                            html += '<div class="card  border-info text-center text-info">'
+                            html += '<div class="card-body">'
+                            html += '<h5 class="social_icon bg-info mb-3">' + value.class_numaric_name +
+                                '</h5>'
+                            html += '<h5>' + "Class: " + value.class_name + '</h5>'
+                            html +=
+                                '<button type="button" class="btn text-warning" onclick="editData(' +
+                                value.id + ')"><i class="fa fa-edit (alias)"></i></button>'
+                            html +=
+                                '<button type="button" class="btn text-warning" onclick="deleteData(' +
+                                value.id + ')"><i class="fa fa-trash-o"></i></button>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
+                        });
+                    } else {
                         html += '<div class="text-center">'
-                        html += '<img src="{{ asset('backend/assets/images/404-error.png') }}" class="" width="150px">';
+                        html +=
+                            '<img src="{{ asset('backend/assets/images/404-error.png') }}" class="" width="150px">';
                         html += '<h6 class="text-white">There are no data found in this page.</h6>';
                         html += '</div>'
                     }
@@ -83,7 +85,7 @@
         }
         allData();
 
-        // -------------------- Create a new Record -----------------------
+        // ============================== Create a new Record ==============================
         function storeData() {
             $.ajax({
                 type: "POST",
@@ -91,10 +93,14 @@
                 data: getInput(),
                 success: function(data) {
                     Swal.fire({
+                        toast: true,
+                        position: 'top-end',
                         icon: 'success',
-                        title: 'Class Created Successfully',
-                        timer: 1500
-                    });
+                        title: 'Class Created Successfully !!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    allData();
                     success();
                 },
                 error: function(error) {
@@ -104,7 +110,7 @@
             })
         }
 
-        // -------------------- Edit Data ----------------------
+        // ============================== Edit Data ==============================
         function editData(id) {
             $.ajax({
                 type: "GET",
@@ -120,7 +126,7 @@
             });
         }
 
-        // --------------------- Update Data ------------------------
+        // ============================== Update Data ==============================
         function updateData() {
             var id = $("#data_id").val();
 
@@ -130,14 +136,16 @@
                 data: getInput(),
                 url: "class/" + id,
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated Successfull',
-                        timer: 1500
-                    });
+                    allData();
                     success();
-                    $('.btnSave').show();
-                    $('.btnUpdate').hide();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully !!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class').text(error.responseJSON.errors.class_name);
@@ -146,7 +154,7 @@
             });
         }
 
-        // --------------------- Data Delete ---------------------
+        // ============================== Data Delete ==============================
         function deleteData(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -164,11 +172,15 @@
                         url: "class/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            allData();
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully !!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

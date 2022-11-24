@@ -5,40 +5,41 @@
             <div class="col-md-6 col-sm-12 ">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Section</li>
+                    <li class="breadcrumb-item active">Class Room Management</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-12">
+        <div class="col-10">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title text-success float-left"><strong>Class Room</strong></h5>
+                    <h5 class="card-title text-success float-left"><strong>Class Room Management</strong></h5>
                     <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
                         data-target="#modal">
                         <i class="fa fa-plus"></i> Create New
                     </button>
                 </div>
                 <div class="card-body pt-5">
-                    <table id="example" class="table table-bordered display text-muted table-striped dataTable" style="width:100%">
-                        <thead class="thead-dark">
+                    <table class="table table-bordered data-table" id="data-table">
+                        <thead class="table-dark">
                             <tr>
-                                <th class="text-info">Class Name</th>
-                                <th class="text-info">Room No</th>
-                                <th class="text-info">Capacity</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class Name</th>
+                                <th class="text-center">Room No</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="tbody">
-
+                        <tbody class="text-white text-center">
                         </tbody>
-                        <tfoot class="thead-dark">
+                        <tfoot class="table-dark">
                             <tr>
-                                <th class="text-info">Class Name</th>
-                                <th class="text-info">Room No</th>
-                                <th class="text-info">Capacity</th>
-                                <th class="text-info">Action</th>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Class Name</th>
+                                <th class="text-center">Room No</th>
+                                <th class="text-center">Capacity</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -51,11 +52,39 @@
 @section('script')
     @include('backend.includes.script')
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
         $('.btnUpdate').hide();
-        // --------------------- Get All Inputs ----------------------
+        /* ============================ All Data ============================ */
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getClassRoom') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'room_no',
+                        name: 'room_no'
+                    },
+                    {
+                        data: 'capacity',
+                        name: 'capacity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+        // ============================ Get All Inputs ============================
         function getInput() {
             var id = $("#data_id").val();
             var name = $('input[name="name"]').val();
@@ -70,33 +99,6 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
-        function allData() {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "{{ route('getClassRoom') }}",
-                success: function(data) {
-                    html = '';
-                    $.each(data, function(key, value) {
-                        html += '<tr>'
-                        html += '<td>'+ value.name + '</td>'
-                        html += '<td>' + value.room_no + '</td>'
-                        html += '<td>' + value.capacity + '</td>'
-                        html += '<td>'
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><h5><i class="fa fa-edit (alias)"></i></h5></button>';
-                        html += '<button type="button" class="btn text-danger" onclick="deleteData(' +
-                            value.id + ')"><h5><i class="fa fa-trash-o"></i></h5></button>';
-                        html += '</td>'
-                        html += '</tr>'
-                    });
-                    $('.tbody').html(html);
-                }
-            });
-        }
-        allData();
-
         // -------------------- Create a new Record -----------------------
         function storeData() {
             $.ajax({
@@ -104,13 +106,15 @@
                 url: "{{ route('classroom.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    console.log(data);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Class Room Created Successfully',
-                        timer: 1500
-                    });
                     success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Class Room Created Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_name').text(error.responseJSON.errors.name);
@@ -148,14 +152,15 @@
                 data: getInput(),
                 url: "classroom/" + id,
                 success: function(data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated Successfull',
-                        timer: 1500
-                    });
                     success();
-                    $('.btnSave').show();
-                    $('.btnUpdate').hide();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.validate_class_name').text(error.responseJSON.errors.name);
@@ -183,11 +188,14 @@
                         url: "classroom/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully !!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         }
                     });
                 }

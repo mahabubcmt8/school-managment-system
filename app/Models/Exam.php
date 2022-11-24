@@ -14,5 +14,6 @@ class Exam extends Model
         'start_date',
         'end-date',
         'note',
+        'status'
     ];
 }

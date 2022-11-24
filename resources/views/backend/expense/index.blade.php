@@ -5,7 +5,7 @@
             <div class="col-md-6 col-sm-12 ">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Expense Type</li>
+                    <li class="breadcrumb-item active">Expense Management</li>
                 </ul>
             </div>
         </div>

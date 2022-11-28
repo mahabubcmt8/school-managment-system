@@ -1,19 +1,18 @@
 @extends('layouts.backend.app')
-
-
-
-@section('content')
-    <div class="block-header">
-        <div class="row clearfix">
-            <div class="col-md-6 col-sm-12 ">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Role</li>
-                    <li class="breadcrumb-item active">New Role</li>
-                </ul>
-            </div>
+@section('block-header')
+<div class="block-header">
+    <div class="row clearfix">
+        <div class="col-md-6 col-sm-12 ">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active">Role</li>
+                <li class="breadcrumb-item active">New Role</li>
+            </ul>
         </div>
     </div>
+</div>
+@endsection
+@section('content')
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -54,6 +53,16 @@
                                 <strong class="text-info">Permission:</strong>
                                 <br />
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="fancy-checkbox my-2">
+                                            <label>
+                                                <input type="checkbox" id="selectAll">
+                                                <span>Select All</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     @foreach ($permission as $value)
                                     <div class="col-md-3">
                                         <div class="fancy-checkbox my-2">
@@ -73,13 +82,17 @@
                             <button type="submit" class="btn btn-success btn-round">Save</button>
                         </div>
                     </div>
-
                     {!! Form::close() !!}
-
                 </div>
             </div>
         </div>
     </div>
-
-
+@endsection
+@section('script')
+    @include('backend.includes.script')
+    <script>
+        $('#selectAll').on('click', function(){
+            $('.name').prop('checked', $(this).prop('checked'));
+        });
+    </script>
 @endsection

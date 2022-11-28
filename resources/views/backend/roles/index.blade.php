@@ -1,7 +1,4 @@
 @extends('layouts.backend.app')
-
-
-
 @section('content')
 <div class="block-header">
     <div class="row clearfix">
@@ -15,7 +12,7 @@
     </div>
 </div>
 <div class="row mt-3 justify-content-center">
-    <div class="col-lg-10">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -30,53 +27,26 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="text-info">SL NO</th>
-                            <th class="text-info">Name</th>
-                            <th class="text-info" width="280px">Action</th>
-                         </tr>
-                    </thead>
-                    <tbody class="text-light">
-                        @foreach ($roles as $key => $role)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $role->name }}</td>
-                            <td>
-                                <a class="btn btn-outline-info" href="{{ route('roles.show',$role->id) }}" title="SHOW">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                @can('role-edit')
-                                    <a class="btn btn-outline-success" href="{{ route('roles.edit',$role->id) }}">
-                                        <i class="fa fa-edit (alias)"></i>
-                                    </a>
-                                @endcan
-                                @can('role-delete')
-                                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'id' => "delForm",'style'=>'display:inline']) !!}
-                                        @csrf
-                                        <button type="submit" class="btn btn-outline-danger delBtn">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    @else
-                                    <button type="submit" class="btn btn-outline-danger disabled" title="You Have not permission to delete this role">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                    {!! Form::close() !!}
-                                @endcan
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot class="thead-dark">
-                        <tr>
-                            <th class="text-info">SL NO</th>
-                            <th class="text-info">Name</th>
-                            <th class="text-info" width="280px">Action</th>
-                         </tr>
-                    </tfoot>
-                  </table>
-                  {!! $roles->render() !!}
+                <div class="table-responsive">
+                    <table class="table table-bordered data-table table-responsive-sm yajra-datatable" id="data-table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white text-center">
+                        </tbody>
+                        <tfoot class="table-dark">
+                            <tr>
+                                <th class="text-center">S.N</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -86,11 +56,34 @@
 @section('script')
     @include('backend.includes.script')
     <script>
-        $('.delBtn').on('click', function(e) {
-            e.preventDefault();
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('roles.index') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+        // ============================ Data Delete ============================
+        function deleteData(id) {
+            var token = '{!! csrf_token() !!}';
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Are you confirm?',
+                text: "Delete This Role!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -98,9 +91,28 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $("#delForm").submit();
+                    $.ajax({
+                        type: "DELETE",
+                        data: {
+                            "id": id,
+                            "_token": token,
+                        },
+                        url: "roles/" + id,
+                        success: function(data) {
+                            success();
+                            $('#data-table').DataTable().ajax.reload();
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Deleted Successfully !!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                        }
+                    });
                 }
             });
-        });
+        }
     </script>
 @endsection

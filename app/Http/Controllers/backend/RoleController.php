@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
+use Yajra\DataTables\DataTables;
 
 class RoleController extends Controller
 {
@@ -20,9 +21,30 @@ class RoleController extends Controller
     // }
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('backend.roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        if ($request->ajax()) {
+            $data = Role::oldest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $btn = '<div class="btn-group">
+                            <a href="'. route('roles.show', $data->id) .'" class="btn text-info">
+                                <span class="sr-only">Edit</span><i class="fa fa-eye"></i>
+                            </a>
+                            <a href="'. route('roles.edit', $data->id) .'" class="btn text-warning"
+                                title="Edit">
+                                <span class="sr-only">Edit</span><i class="fa fa-edit (alias)"></i>
+                            </a>
+                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
+                            <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('backend.roles.index');
     }
 
     public function create()
@@ -87,7 +109,6 @@ class RoleController extends Controller
     {
         DB::table("roles")->where('id',$id)->delete();
 
-        Toastr::success('Role deleted Successfully!!', 'Success');
-        return redirect()->route('roles.index');
+        return response()->json();
     }
 }

@@ -4,12 +4,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>{{ $settings->system_title ? : 'Home'  }}</title>
+<title>{{ ($pageTitle ?? 'Dashboard') . ' | Admin Panel' }}</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<meta name="description" content="HexaBit Bootstrap 4x Admin Template">
-<meta name="author" content="WrapTheme, www.thememakker.com">
+<meta name="description" content="">
+<meta name="author" content="">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="icon" href="{{ asset('storage/images/settings/'.$settings->favicon) }}" type="image/x-icon">
@@ -51,6 +51,7 @@
 
 
     <div id="main-content">
+        @yield('block-header')
         <div class="container-fluid">
             @yield('content')
         </div>

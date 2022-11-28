@@ -1,8 +1,8 @@
-@extends('layouts.backend.app')
+@extends('layouts.backend.app',['pageTitle'=>'Create new User'])
 @section('css')
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/dropify/css/dropfy.css') }}">
 @endsection
-@section('content')
+@section('block-header')
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12 ">
@@ -14,6 +14,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -21,12 +23,13 @@
                     <div class="card-header">
                         <h5 class="card-title text-success float-left"><i class="fa icon-user-follow"></i> New User</h5>
                         <a href="{{ route('users.index') }}" class="btn btn-primary btn-round float-right text-white">
-                             All Users
+                            All Users
                         </a>
                     </div>
                     <div class="card-body py-5">
                         @if (count($errors) > 0)
-                            <p class="mb-5 text-danger text-center"><strong>Whoops! </strong> Something went wrong, Please Try Again.</p>
+                            <p class="mb-5 text-danger text-center"><strong>Whoops! </strong> Something went wrong, Please
+                                Try Again.</p>
                         @endif
                         <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
@@ -53,7 +56,7 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text"><i class="fa icon-energy"></i></label>
                                         </div>
-                                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
+                                        {!! Form::select('roles[]', $roles, [], ['class' => 'form-control']) !!}
                                     </div>
                                     @error('roles')
                                         <small class="text-warning"><strong>{{ $message }}</strong></small>

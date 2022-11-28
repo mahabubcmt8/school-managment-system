@@ -1,18 +1,19 @@
 @extends('layouts.backend.app')
-
-
-@section('content')
-<div class="block-header">
-    <div class="row clearfix">
-        <div class="col-md-6 col-sm-12 ">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item active">Role</li>
-                <li class="breadcrumb-item active">Show Role Permission</li>
-            </ul>
+@section('block-header')
+    <div class="block-header">
+        <div class="row clearfix">
+            <div class="col-md-6 col-sm-12 ">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item active">Role</li>
+                    <li class="breadcrumb-item active">Show Role Permission</li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+@endsection
+
+@section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">

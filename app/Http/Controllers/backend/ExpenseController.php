@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\ExpenseType;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 
 class ExpenseController extends Controller
 {
@@ -17,9 +18,35 @@ class ExpenseController extends Controller
         return view('backend.expense.index',compact('expenseType'));
     }
 
-    public function getExpense(){
-        $data = Expense::with('getExpenseType')->latest()->get();
-        return response()->json($data);
+    public function getExpense(Request $request){
+        if ($request->ajax()) {
+            $data = Expense::latest()->with('getExpenseType')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('expense_type' , function($data){
+                    return $data->getExpenseType->name;
+                })
+                ->editColumn('date', function($data){
+                    $data = date('d-M-Y', strtotime($data->date));
+                    return $data;
+                })
+                ->editColumn('description', function($data){
+                    return '<button type="button" class="btn text-info" onclick="description('.$data->id.')">
+                                <i class="fa fa-book"></i>
+                            </button>';
+                })
+                ->addColumn('action', function($data){
+                    $btn = '<button type="button" class="btn text-warning" onclick="editData('.$data->id.')">
+                            <i class="fa fa-edit (alias)"></i>
+                            </button>
+                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
+                            <i class="fa fa-trash-o"></i>
+                            </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action','description'])
+                ->make(true);
+        }
     }
 
     public function create()
@@ -48,7 +75,8 @@ class ExpenseController extends Controller
 
     public function show($id)
     {
-        //
+        $data = Expense::find($id);
+        return response()->json($data);
     }
 
 

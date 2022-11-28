@@ -11,113 +11,98 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-success"><strong>All Expenses</strong></h5>
+                    <h5 class="card-title text-success float-left"><strong>Expense Management</strong></h5>
+                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
+                        data-target="#modal">
+                        <i class="fa fa-plus"></i> Create New
+                    </button>
                 </div>
-                <div class="card-body">
+                <div class="card-body mt-4">
                     <div class="row">
                         <div class="col-12">
-
-
-                        <table id="example" class="table table-bordered display text-white text-muted table-striped"
-                        style="width:100%;">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th class="text-info">SL</th>
-                                <th class="text-info">Expense Type</th>
-                                <th class="text-info">Amount</th>
-                                <th class="text-info">Description</th>
-                                <th class="text-info">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataList">
-
-                        </tbody>
-                        <tfoot class="thead-dark text-white">
-                            <tr>
-                                <th class="text-info">SL</th>
-                                <th class="text-info">Expense Type</th>
-                                <th class="text-info">Amount</th>
-                                <th class="text-info">Description</th>
-                                <th class="text-info">Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            <div class="table-responsive">
+                            <table class="table table-bordered data-table table-responsive-sm yajra-datatable" id="data-table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th class="text-center">S.N</th>
+                                        <th class="text-center">Expense Type</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Details</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-white text-center">
+                                </tbody>
+                                <tfoot class="table-dark">
+                                    <tr>
+                                        <th class="text-center">S.N</th>
+                                        <th class="text-center">Expense Type</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Details</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                 </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-
-                <div class="card-body">
-                    <h5 class="from-title text-success mb-2"><strong>Expense</strong></h5>
-                    <input type="hidden" id="data_id">
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="" class="text-info">Expense Type <span class="text-danger">*</span></label>
-                            <select class="form-select form-control" name="expense_type_id" id="">
-                                <option class="bg-dark text-white" value="" selected>Choose...</option>
-                                @foreach ($expenseType as $item)
-                                    <option class="bg-dark text-white" value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            <small class="expense_type_validation text-warning"></small><br>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="" class="text-info">Amount: <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="text" class="form-control inputname" placeholder="Amount..." name="amount">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">.00</span>
-                                </div>
-                            </div>
-                            <small class="amount_validation text-warning"></small><br>
-                        </div>
-                        <div class="col-12">
-                            <label for="" class="text-info">Date: <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-calendar"></i></span>
-                                </div>
-                                <input type="text" class="form-control inputname" placeholder="dd/mm/yyyy" name="date" id="date">
-                            </div>
-                            <small class="date_validation text-warning"></small><br>
-                        </div>
-                        <div class="col-12">
-                            <label for="" class="text-info">Note:</label>
-                            <div class="input-group">
-                                <textarea class="form-control" name="description" placeholder="Note..."></textarea>
-                            </div>
-                            <small class="description_validation text-warning"></small><br>
-                        </div>
-                    </div>
-
-
-
-                    <div class="text-center">
-                        <button class="saveBtn btn-block btn btn-primary btn-round mt-2" onclick="storeData();">Save</button>
-                        <button class="updateBtn btn-block btn btn-primary btn-round mt-2" onclick="updateData();">Update</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('backend.expense.modal')
+    @include('backend.expense.description')
 @endsection
 @section('script')
     @include('backend.includes.script')
     <script src="{{ asset('backend/assets/vendor/jquery-inputmask/jquery.inputmask.bundle.js') }}"></script><!-- Input Mask Plugin Js -->
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
+        // $('#date').inputmask('dd/mm/yyyy', {
+        //     placeholder: '__/__/____'
+        // });
+        $('.btnUpdate').hide();
+        /* ============================ All Data ============================ */
+        $(function() {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                autoWidth: false,
+                ajax: "{{ route('getExpense') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'expense_type',
+                        name: 'expense_type'
+                    },
+                    {
+                        data: 'amount',
+                        name: 'amount'
+                    },
+                    {
+                        data: 'date',
+                        name: 'date'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
         });
-        $('#date').inputmask('dd/mm/yyyy', {
-            placeholder: '__/__/____'
-        });
-        $('.updateBtn').hide();
         // --------------------- Get All Inputs ----------------------
         function getInput() {
             var id = $("#data_id").val();
@@ -135,39 +120,7 @@
             }
         }
 
-        // --------------------- Get All Records from Database ---------------------
-        function allData() {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "{{ route('getExpense') }}",
-                success: function(data) {
-                    html = '';
-                    var i = 1;
-                    if(data.length != 0){
-                        $.each(data, function(key, value) {
-                        html += '<tr>';
-                        html += '<td>'+(i++)+'</d>';
-                        html += '<td>'+value.get_expense_type.name+'</d>';
-                        html += '<td>'+value.amount+'</d>';
-                        html += '<td>'+value.description+'</d>';
-                        html += '<td>';
-                        html += '<button type="button" class="btn text-warning" onclick="editData(' +
-                            value.id + ')"><i class="fa fa-edit (alias)"></i></button>';
-                        html += '<button type="button" class="btn text-danger" onclick="deleteData(' +
-                            value.id + ')"><i class="fa fa-trash-o"></i></button>';
-                        html += '</td>';
-                        html += '</tr>';
-                    });
-                    }else{
-                        html += '<tr><td colspan="5"><p class="text-center">No data available to show</p></td></tr>';
-                    }
 
-                    $('#dataList').html(html);
-                }
-            });
-        }
-        allData();
 
         // -------------------- Create a new Record -----------------------
         function storeData() {
@@ -176,11 +129,15 @@
                 url: "{{ route('expense.store') }}",
                 data: getInput(),
                 success: function(data) {
-                    allData();
-                    $("#data_id").val('');
-                    $('input[name="amount"]').val('');
-                    $('input[name="date"]').val('');
-                    $('textarea[name="description"]').val('');
+                    success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Expense Creation Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 },
                 error: function(error) {
                     $('.expense_type_validation').text(error.responseJSON.errors.expense_type_id);
@@ -198,10 +155,13 @@
                 dataType: 'json',
                 url: "expense/" + id + "/edit",
                 success: function(data) {
+                    console.log(data);
                     $('.saveBtn').hide();
-                    $('.updateBtn').show();
+                    $('.btnUpdate').show();
+                    $("#modal").modal('show');
                     $('.from-title').text('Edit Expense Type');
                     $("#data_id").val(data.id);
+                    $("#expense_type_id").val(data.expense_type_id).attr('selected','selected');
                     $('input[name="amount"]').val(data.amount);
                     $('input[name="date"]').val(data.date);
                     $('textarea[name="description"]').val(data.description);
@@ -219,20 +179,35 @@
                 data: getInput(),
                 url: "expense/" + id,
                 success: function(data) {
-                    allData();
-                    $('.saveBtn').show();
-                    $('.updateBtn').hide();
+                    success();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Expense Updated Successfully!!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     $('.from-title').text('Expense');
                     $("#data_id").val('');
-                    $('input[name="amount"]').val('');
-                    $('input[name="date"]').val('');
-                    $('textarea[name="description"]').val('');
                 },
                 error: function(error) {
                     $('.expense_type_validation').text(error.responseJSON.errors.expense_type_id);
                     $('.amount_validation').text(error.responseJSON.errors.amount);
                     $('.date_validation').text(error.responseJSON.errors.date);
                     $('.description_validation').text(error.responseJSON.errors.description);
+                }
+            });
+        }
+        // description
+        function description(id){
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "expense/" + id,
+                success: function(data) {
+                    $('.desc').html(data.description);
+                    $("#descriptionmodal").modal('show');
                 }
             });
         }
@@ -255,11 +230,14 @@
                         url: "expense/" + id,
                         success: function(data) {
                             success();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Expense Deleted!!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
                         }
                     });
                 }

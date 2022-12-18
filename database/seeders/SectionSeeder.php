@@ -15,10 +15,11 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
-        Section::create([
-            'name' => "A",
-            'capacity' => 30,
-            'class_id' => 1,
-        ]);
+        // Section::create([
+        //     'name' => "A",
+        //     'capacity' => 30,
+        //     'class_id' => 1,
+        // ]);
+         Section::factory()->count(10000)->create();
     }
 }

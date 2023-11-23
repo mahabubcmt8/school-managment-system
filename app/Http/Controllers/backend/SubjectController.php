@@ -13,7 +13,8 @@ class SubjectController extends Controller
     public function index()
     {
         $class = Classes::oldest()->get();
-        return view('backend.subject.index', compact('class'));
+        $pageTitle = 'Subject Management';
+        return view('backend.subject.index', compact('class', 'pageTitle'));
     }
 
     public function getAllSubject(Request $request)

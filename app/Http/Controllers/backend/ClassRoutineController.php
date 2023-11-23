@@ -11,15 +11,15 @@ use App\Models\ClassRoutine;
 use App\Models\Subject;
 use App\Models\ClassRoutinePeriod;
 use Brian2694\Toastr\Facades\Toastr;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ClassRoutineController extends Controller
 {
     public function index()
     {
         $routine = ClassRoutinePeriod::with('getRoutine','subject','class_room','teacher')->get();
-        // return $routine;
-        return view('backend.class-routine.index',compact('routine'));
+        $pageTitle = 'Routine Management';
+        return view('backend.class-routine.index',compact('routine', 'pageTitle'));
     }
 
     public function create()
@@ -28,8 +28,9 @@ class ClassRoutineController extends Controller
         $class_room = ClassRoom::latest()->get();
         $subject = Subject::latest()->get();
         $user = User::latest()->get();
+        $pageTitle = 'Routine Management';
 
-        return view('backend.class-routine.create',compact('class','class_room','user','subject'));
+        return view('backend.class-routine.create',compact('class','class_room','user','subject', 'pageTitle'));
     }
 
     public function store(Request $request)

@@ -1,16 +1,7 @@
-@php
-    $settings = App\Models\Settings::latest()->first();
-@endphp
 <div id="left-sidebar" class="sidebar">
     <div class="navbar-brand text-center">
         <a href="{{ route('home') }}">
-            @if ($settings->logo != null)
-                <img src="{{ asset('storage/images/settings/'.$settings->logo) }}" alt="Software Logo"
-            class="img-fluid " style="width: 150px;height:60px">
-            @else
-                <img src="{{ asset('backend/assets/images/icon-light.svg') }}" alt="Software Logo"
-                class="img-fluid logo">
-            @endif
+            <img src="{{ config('site.logo') }}" alt="Logo" class="img-fluid " style="max-width: 150px;max-height:60px">
         </a>
         <button type="button" class="btn-toggle-offcanvas btn btn-sm btn-default float-right">
             <i class="lnr lnr-menu fa fa-chevron-circle-left"></i>

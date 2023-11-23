@@ -15,7 +15,8 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Settings::latest()->first();
-        return view('backend.settings.index',compact('settings'));
+        $pageTitle = 'System Settings';
+        return view('backend.settings.index',compact('settings', 'pageTitle'));
     }
 
     public function create()

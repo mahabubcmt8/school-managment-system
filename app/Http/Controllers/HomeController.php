@@ -26,9 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['settings'] = Settings::latest()->first();
         $data['student'] = Student::count();
         $data['users'] = User::count();
+        $data['pageTitle'] = 'Dashboard';
         return view('home',$data);
     }
 }

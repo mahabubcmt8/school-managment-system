@@ -14,13 +14,14 @@ class SectionController extends Controller
     public function index()
     {
         $class = Classes::oldest()->get();
-        return view('backend.section.index', compact('class'));
+        $pageTitle = 'Section Management';
+        return view('backend.section.index', compact('class', 'pageTitle'));
     }
 
     public function getSections(Request $request)
     {
         if ($request->ajax()) {
-            $data = Section::latest()->with('classes')->get();
+            $data = Section::with('classes')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
 
@@ -42,11 +43,6 @@ class SectionController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -57,11 +53,6 @@ class SectionController extends Controller
 
         $data = Section::create($request->all());
         return response()->json($data);
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)

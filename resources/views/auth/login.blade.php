@@ -1,8 +1,8 @@
-@extends('layouts.backend.app')
+@extends('layouts.backend.app', ['pageTitle'=> 'Login'])
 
 <div class="container">
     <div class="row justify-content-center mt-5 pt-5" >
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="text-center text-success">
@@ -14,7 +14,7 @@
                     <form action="{{ route('login') }}" method="post">
                         @csrf
                         <div class="row justify-content-center">
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <label class="text-info">Email Address <span class="text-danger">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -30,7 +30,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <label class="text-info">Password <span class="text-danger">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -46,7 +46,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                         {{ old('remember') ? 'checked' : '' }}>
@@ -56,14 +56,14 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-5 text-right">
+                            <div class="col-md-6 text-right">
                                 @if (Route::has('password.request'))
                                 <a class=" text-muted" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif
                             </div>
-                            <div class="col-md-10 mt-5">
+                            <div class="col-md-12 mt-5">
                                 <button type="submit" class="btn btn-primary btn-block btn-round">
                                     {{ __('Login') }}
                                 </button>

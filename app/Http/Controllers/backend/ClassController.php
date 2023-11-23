@@ -13,7 +13,8 @@ class ClassController extends Controller
      */
     public function index()
     {
-        return view('backend.class.index');
+        $pageTitle = 'Class Management';
+        return view('backend.class.index', compact('pageTitle'));
     }
 
     public function getClasses(){
@@ -35,14 +36,6 @@ class ClassController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        //
-    }
-
      /**
      * Display the specified resource.
      */
@@ -51,8 +44,6 @@ class ClassController extends Controller
         $data = Classes::find($id);
         return response()->json($data);
     }
-
-
 
     /**
      * Update the specified resource in storage.

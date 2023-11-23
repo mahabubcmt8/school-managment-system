@@ -10,17 +10,13 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        return view('backend.department.index');
+        $pageTitle = 'Department Management';
+        return view('backend.department.index', compact('pageTitle'));
     }
 
     public function getDepartment(){
         $data = Department::latest()->get();
         return response()->json($data);
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(Request $request)
@@ -31,11 +27,6 @@ class DepartmentController extends Controller
 
         $data = Department::create($request->all());
         return response()->json($data);
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)

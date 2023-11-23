@@ -26,25 +26,25 @@
             <div class="card p-3 text-light text-center">
                 <blockquote class="blockquote mb-0 border-info">
                     <h5><strong>WELCOME TO OUR SCHOOL</strong></h5>
-                    <h2><strong>{{ $settings->system_name }}</strong></h2>
+                    <h2><strong>{{ config('site.title') }}</strong></h2>
                     <ul class="social-links list-unstyled mt-3 mb-0">
                         <li>
-                            <a class="btn btn-default bg-info text-white" href="{{ $settings->facebook }}" target="_blank"
+                            <a class="btn btn-default bg-info text-white" href="{{ config('site.facebook') }}" target="_blank"
                                 data-toggle="tooltip" data-placement="top" data-original-title="facebook"><i
                                     class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a class="btn btn-default bg-info text-white" href="{{ $settings->twitter }}" target="_blank"
+                            <a class="btn btn-default bg-info text-white" href="{{ config('site.twitter') }}" target="_blank"
                                 data-toggle="tooltip" data-placement="top" data-original-title="twitter"><i
                                     class="fa fa-twitter"></i></a>
                         </li>
                         <li>
-                            <a class="btn btn-default bg-info text-white" href="{{ $settings->youtube }}" target="_blank"
+                            <a class="btn btn-default bg-info text-white" href="{{ config('site.youtube') }}" target="_blank"
                                 data-toggle="tooltip" data-placement="top" data-original-title="youtube"
                                 aria-describedby="tooltip743906"><i class="icon-social-youtube"></i></a>
                         </li>
                         <li>
-                            <a class="btn btn-default bg-info text-white" href="{{ $settings->linkedin }}" target="_blank"
+                            <a class="btn btn-default bg-info text-white" href="{{ config('site.linkedin') }}" target="_blank"
                                 data-toggle="tooltip" data-placement="top" data-original-title="linkedin"
                                 aria-describedby="tooltip743906"><i class="fa fa-linkedin"></i></a>
                         </li>

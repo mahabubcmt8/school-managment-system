@@ -11,7 +11,8 @@ class ClassRoomController extends Controller
 {
     public function index()
     {
-        return view('backend.class-room.index');
+        $pageTitle = 'Class Room Management';
+        return view('backend.class-room.index', compact('pageTitle'));
     }
 
     public function getClassRoom(Request $request){
@@ -33,11 +34,6 @@ class ClassRoomController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,12 +44,6 @@ class ClassRoomController extends Controller
 
         $data = ClassRoom::create($request->all());
         return response()->json($data);
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)

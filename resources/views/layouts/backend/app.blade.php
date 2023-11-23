@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>{{ ($pageTitle ?? 'Dashboard') . ' | Admin Panel' }}</title>
+<title>{{ $pageTitle ?? '' }} , {{ config('site.title') }}</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -12,7 +12,8 @@
 <meta name="author" content="">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<link rel="icon" href="{{ asset('storage/images/settings/'.$settings->favicon) }}" type="image/x-icon">
+<link rel="icon" href="{{ config('site.logo') }}" type="image/x-icon">
+
 <!-- VENDOR CSS -->
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
@@ -33,11 +34,11 @@
 <body class="theme-cyan">
 
 <!-- Page Loader -->
-<div class="page-loader-wrapper">
+{{-- <div class="page-loader-wrapper">
     <div class="loader">
         <h4 class="text-white">Loading...</h4>
     </div>
-</div>
+</div> --}}
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
 

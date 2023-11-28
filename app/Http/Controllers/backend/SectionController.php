@@ -30,11 +30,11 @@ class SectionController extends Controller
                     return $class;
                 })
                 ->addColumn('action', function($data){
-                    $btn = '<button type="button" class="btn text-warning" onclick="editData('.$data->id.')">
+                    $btn = '<button type="button" class="btn btn-outline-warning btn-sm" onclick="editData('.$data->id.')">
                             <i class="fa fa-edit (alias)"></i>
                             </button>
-                            <button type="button" class="btn text-danger" onclick="deleteData('.$data->id.')">
-                            <i class="fa fa-trash-o"></i>
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData('.$data->id.')">
+                            <i class="fa-solid fa-trash-can"></i>
                             </button>';
                     return $btn;
                 })

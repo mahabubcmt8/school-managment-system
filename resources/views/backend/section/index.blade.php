@@ -1,41 +1,40 @@
 @extends('layouts.backend.app')
 @section('content')
-    <div class="block-header">
-        <div class="row clearfix">
-            <div class="col-md-6 col-sm-12 ">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Section</li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title text-success float-left"><strong>Section</strong></h5>
-                    <button class="btn btn-success btn-round float-right text-white" data-toggle="modal"
-                        data-target="#modal">
-                        <i class="fa fa-plus"></i> Create New
-                    </button>
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-white mb-0">
+                                <strong><i class="fa-solid fa-bars"></i> Sections</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="{{ route('home') }}" class="text-white">
+                                <i class="fa fa-laptop"></i> Dashboard
+                            </a>
+                            <span class="text-white"> / </span>
+                            <span class="text-info"> Sections</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body pt-5">
                     <table class="table table-bordered data-table" id="data-table">
-                        <thead class="table-dark">
+                        <thead>
                             <tr>
-                                <th class="text-center">S.N</th>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Class</th>
                                 <th class="text-center">Section</th>
                                 <th class="text-center">Capacity</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-white text-center">
+                        <tbody class="text-center">
                         </tbody>
-                        <tfoot class="table-dark">
+                        <tfoot>
                             <tr>
-                                <th class="text-center">S.N</th>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Class</th>
                                 <th class="text-center">Section</th>
                                 <th class="text-center">Capacity</th>

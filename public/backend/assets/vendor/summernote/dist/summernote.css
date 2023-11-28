@@ -5,8 +5,8 @@ display: none;
     font-family: "summernote";
     font-style: normal;
     font-weight: normal;
-    src: url("font/summernote.eot?ad8d7e2d177d2473aecd9b35d16211fb");
-    src: url("font/summernote.eot?#iefix") format("embedded-opentype"),url("font/summernote.woff?ad8d7e2d177d2473aecd9b35d16211fb") format("woff"),url("font/summernote.ttf?ad8d7e2d177d2473aecd9b35d16211fb") format("truetype");
+    src: url("font/summernotef534.eot?ad8d7e2d177d2473aecd9b35d16211fb");
+    src: url("font/summernoted41d.eot?#iefix") format("embedded-opentype"),url("font/summernotef534.woff?ad8d7e2d177d2473aecd9b35d16211fb") format("woff"),url("font/summernotef534.ttf?ad8d7e2d177d2473aecd9b35d16211fb") format("truetype");
 }
 
 [class^="note-icon-"]:before,[class*=" note-icon-"]:before {

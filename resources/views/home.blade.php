@@ -2,7 +2,6 @@
 @section('css')
     <style>
         .clock {
-            color: #17D4FE;
             font-size: 35px;
             font-family: "Arial";
             letter-spacing: 3px;
@@ -11,42 +10,32 @@
     </style>
 @endsection
 @section('content')
-    <div class="block-header">
-        <div class="row clearfix">
-            <div class="col-md-6 col-sm-12 ">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="card p-3 text-light text-center">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3 text-center">
+                <blockquote class="blockquote mb-0 border-dark">
                     <h5><strong>WELCOME TO OUR SCHOOL</strong></h5>
                     <h2><strong>{{ config('site.title') }}</strong></h2>
                     <ul class="social-links list-unstyled mt-3 mb-0">
                         <li>
                             <a class="btn btn-default bg-info text-white" href="{{ config('site.facebook') }}" target="_blank"
-                                data-toggle="tooltip" data-placement="top" data-original-title="facebook"><i
-                                    class="fa fa-facebook"></i></a>
+                                data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook"></i></i>
+                            </a>
                         </li>
                         <li>
                             <a class="btn btn-default bg-info text-white" href="{{ config('site.twitter') }}" target="_blank"
-                                data-toggle="tooltip" data-placement="top" data-original-title="twitter"><i
-                                    class="fa fa-twitter"></i></a>
+                                data-toggle="tooltip" data-placement="top" data-original-title="Twitter">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
                         </li>
                         <li>
                             <a class="btn btn-default bg-info text-white" href="{{ config('site.youtube') }}" target="_blank"
-                                data-toggle="tooltip" data-placement="top" data-original-title="youtube"
-                                aria-describedby="tooltip743906"><i class="icon-social-youtube"></i></a>
+                                data-toggle="tooltip" data-placement="top" data-original-title="Youtube"><i class="fa-brands fa-youtube"></i>
+                            </a>
                         </li>
                         <li>
                             <a class="btn btn-default bg-info text-white" href="{{ config('site.linkedin') }}" target="_blank"
-                                data-toggle="tooltip" data-placement="top" data-original-title="linkedin"
-                                aria-describedby="tooltip743906"><i class="fa fa-linkedin"></i></a>
+                                data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </blockquote>
@@ -55,7 +44,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <blockquote class="blockquote mb-0 border-info">
+                    <blockquote class="blockquote mb-0 border-dark">
                         <div id="MyClockDisplay" class="clock my-4" onload="showTime()"></div>
                     </blockquote>
                 </div>
@@ -64,11 +53,11 @@
     </div>
     <div class="row">
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
-                            <img src="{{ asset('backend/assets/images/employees.png') }}" alt="student" width="70px">
+                            <img src="{{ asset('backend/assets/images/users.png') }}" alt="student" width="70px">
                         </div>
                         <div class="number float-right text-right">
                             <h3><span class="font700">{{ $users ? : '' }}</span></h3>
@@ -79,11 +68,11 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
-                            <img src="{{ asset('backend/assets/images/teacher.png') }}" alt="student" width="70px">
+                            <img src="{{ asset('backend/assets/images/users.png') }}" alt="student" width="70px">
                         </div>
                         <div class="number float-right text-right">
                             <h3><span class="font700">500</span></h3>
@@ -94,11 +83,11 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
-                            <img src="{{ asset('backend/assets/images/graduated.png') }}" alt="student" width="70px">
+                            <img src="{{ asset('backend/assets/images/users.png') }}" alt="student" width="70px">
                         </div>
                         <div class="number float-right text-right">
                             <h3><span class="font700">{{ $student }}</span></h3>
@@ -111,8 +100,8 @@
     </div>
     <div class="row">
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
                             <h5><strong>Total Expense</strong></h5>
@@ -126,8 +115,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
                             <h5><strong>Total Department</strong></h5>
@@ -140,8 +129,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card p-3 text-info">
-                <blockquote class="blockquote mb-0 border-info">
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 border-dark">
                     <div class="clearfix">
                         <div class="float-left">
                             <h5><strong>Upcoming Exam</strong></h5>

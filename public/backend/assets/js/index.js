@@ -1,6 +1,5 @@
 $(function() {
     "use strict";
-    MorrisArea();
 
     // progress bars
     $('.progress .progress-bar').progressbar({
@@ -14,7 +13,7 @@ $(function() {
         offset: 90,
         width: '100px',
         height: '100px',
-        sliceColors: ['#29bd73', '#ffaf1d', '#0e9be2']
+        sliceColors: ['#29bd73', '#182973', '#ffcd55']
     })
 
 
@@ -43,7 +42,7 @@ $(function() {
                     appendToBody: true
                 }),
                 Chartist.plugins.legend({
-                    legendNames: ['Mobile', 'Laptop', 'Computer']
+                    legendNames: ['Bitcoin', 'NEO', 'ETH']
                 })
             ]
     }).on('draw', function(data) {
@@ -54,63 +53,54 @@ $(function() {
             }
     });
 
+
     // notification popup
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.showDuration = 1000;
     toastr['info']('Hello, welcome to HexaBit, a unique admin Template.');
 
-});
+    var chart = c3.generate({    
 
-// Customer Overview
-function MorrisArea() {
-    Morris.Area({
-        element: 'Sales_Overview',
-        data: [{
-                period: '2012',
-                SiteA: 0,
-                SiteB: 10,
-
-            }, {
-                period: '2013',
-                SiteA: 106,
-                SiteB: 71,
-
-            }, {
-                period: '2014',
-                SiteA: 68,
-                SiteB: 41,
-
-            }, {
-                period: '2015',
-                SiteA: 89,
-                SiteB: 285,
-
-            }, {
-                period: '2016',
-                SiteA: 185,
-                SiteB: 104,
-
-            }, {
-                period: '2017',
-                SiteA: 146,
-                SiteB: 102  ,
-
+        bindto: '#User_Statistics', // id of chart wrapper
+        data: {
+            columns: [
+                // each columns data
+                ['data1', 7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3],
+                ['data2', 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3],
+                ['data3', 14.2, 10.3, 11.9, 15.2, 17.0, 16.6, 6.6, 4.8, 3.9, 4.2],
+            ],
+    
+            labels: true,
+            type: 'line', // default type of chart
+            colors: {
+                'data1': hexabit.colors["orange"],
+                'data2': hexabit.colors["green"],
+                'data3': hexabit.colors["gray-light"]
+            },
+            names: {
+                // name of each serie
+                'data1': 'Bitcoin',
+                'data2': 'NEO',
+                'data3': 'ETH'
             }
-        ],
-        xkey: 'period',
-        ykeys: ['SiteA', 'SiteB'],
-        labels: ['Site A', 'Site B'],
-        pointSize: 2,
-        fillOpacity: 0.9,
-        pointStrokeColors: ['#ffaf1d', '#0e9be2'],
-        behaveLikeLine: true,
-        gridLineColor: '#252a31',
-        lineWidth: 1,
-        smooth: true,
-        hideHover: 'auto',
-        lineColors: ['#ffaf1d', '#0e9be2'],
-        resize: true
-
+        },
+    
+        axis: {
+            x: {
+                type: 'category',
+                // name of each category
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug','Sept','Oct']
+            },
+        },
+    
+        legend: {
+            show: true, //hide legend
+        },
+    
+        padding: {
+            bottom: 10,
+            top: 0
+        },
     });
-}
+});
